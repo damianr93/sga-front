@@ -1,0 +1,54 @@
+* {
+  font-family: Inter, system-ui, Avenir, Helvetica, Arial, sans-serif;
+  line-height: 1.5;
+  font-weight: 400;
+
+  color-scheme: light dark;
+  color: rgba(255, 255, 255, 0.87);
+  background-color: #3a3b3b;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.dashboard-container {
+  display: grid; 
+  grid-template-columns: 0.6fr 1fr 1.1fr; 
+  grid-template-rows: 1fr 1fr 1fr; 
+  gap: 0px 0px; 
+  height: 100vh;
+  grid-template-areas: 
+    "dashboard-nav dashboard-main dashboard-main"
+    "dashboard-nav dashboard-main dashboard-main"
+    "dashboard-nav dashboard-main dashboard-main"; 
+}
+.dashboard-nav { 
+  grid-area: dashboard-nav;
+  display: flex;
+  justify-content: center ;
+  align-items: center;
+  border-right: .3px solid rgba(255, 255, 255, 0.253);
+}
+.dashboard-main { 
+  grid-area: dashboard-main; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.img-logo-container {
+  width: 100%;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.img-logo-container img{
+  width: 80%;
+
+}
+
+.table-container {
+  width: 50%;
+}
+
