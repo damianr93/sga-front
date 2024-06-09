@@ -12,7 +12,7 @@
 .dashboard-container {
   display: grid; 
   grid-template-columns: 0.6fr 1fr 1.1fr; 
-  grid-template-rows: 1fr 1fr 1fr; 
+  grid-template-rows: auto;
   gap: 0px 0px; 
   height: 100vh;
   grid-template-areas: 
@@ -28,6 +28,8 @@
   border-right: .3px solid rgba(255, 255, 255, 0.253);
   background-color: rgb(51, 46, 46);
 }
+
+
 .dashboard-main { 
   grid-area: dashboard-main; 
   display: flex;
@@ -58,4 +60,5 @@
   display: flex;
   margin: 5px;
   justify-content: space-between;
+  align-items: center;
 }

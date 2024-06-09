@@ -1,17 +1,26 @@
 import { PieChart } from '@mui/x-charts/PieChart';
 
-const data = [
-  { id: 0, value: 10, label: 'series A' },
-  { id: 1, value: 15, label: 'series B' },
-  { id: 2, value: 20, label: 'series C' },
-];
 
-export default function PorcentageCyrcle() {
+export default function PorcentageCyrcle({data}:any) {
+
+  const extractSeries = (data: any) => {
+    const selectedKeys = ['especial', 'metal', 'generales'];
+    return selectedKeys
+      .filter(key => data[key] && data[key].serie)
+      .map((key, index) => ({
+        id: index,
+        value: data[key].total,
+        label: key,
+      }));
+  };
+
+  const seriesList = extractSeries(data);
+
   return (
     <PieChart
       series={[
         {
-          data,
+          data: seriesList,
           highlightScope: { faded: 'global', highlighted: 'item' },
           faded: { innerRadius: 30, additionalRadius: -30, color: 'gray' },
         },

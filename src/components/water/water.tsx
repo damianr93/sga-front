@@ -1,6 +1,6 @@
 import BarGraph from "../bar-graph"
 import CartesianTable from "../cartesian-table"
-import CollapsibleTable from "../collapsed-table"
+import CollapsibleTable from "../waste/collapsed-table"
 import PorcentageCyrcle from "../porcentage-cyrcle"
 
 
