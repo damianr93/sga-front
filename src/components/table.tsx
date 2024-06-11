@@ -16,8 +16,8 @@ const createData = (
 }
 
 type Row = {
-  medidoPor: string;
-  measure: number;
+  createdBy: string;
+  measurement: number;
   createdAt: string;
   _id:string
 };
@@ -25,7 +25,7 @@ type Row = {
 
 export default function BasicTable({rows}: { rows: Row[] }) {
 const dataTable = rows.map((elem:Row) => {
-  return createData(elem.medidoPor, elem.measure, elem.createdAt, elem._id)
+  return createData(elem.createdBy, elem.measurement, elem.createdAt, elem._id)
 })
 
 

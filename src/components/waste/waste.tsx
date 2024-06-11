@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { getWastes } from "../../api/waste/wastes";
 import CartesianTable from "../cartesian-table";
 import PorcentageCyrcle from "../porcentage-cyrcle";
-import CollapsibleTable from "./collapsed-table";
+import CollapsibleTable from "../collapsed-table";
 
 interface Measurement {
     createdAt: string;
@@ -64,30 +64,30 @@ export const Waste = () => {
             <h2><b>Cartones y Liquidos:</b></h2>
             <h4>Liquidos Especiales:</h4>
             <li>
-              Total: <b>{waste.liquido.total} Lts.</b>
+              Total: <b>{waste.liquido.total && waste.liquido.total } Lts.</b>
             </li>
             <li>
-              Promedio:<b>{waste.liquido.promedio} Lts.</b>
+              Promedio:<b>{waste.liquido.promedio && waste.liquido.promedio } Lts.</b>
             </li>
             <li>
-              Máximo:<b>{waste.liquido.maximo} Lts.</b>
+              Máximo:<b>{waste.liquido.maximo  && waste.liquido.maximo } Lts.</b>
             </li>
             <li>
-              Mínimo:<b>{waste.liquido.minimo} Lts.</b>
+              Mínimo:<b>{waste.liquido.minimo  && waste.liquido.minimo } Lts.</b>
             </li>
   
             <h4>Carton comprimido:</h4>
             <li>
-              Total: <b>{waste.carton.total} Comp.</b>
+              Total: <b>{waste.carton.total && waste.carton.total} Comp.</b>
             </li>
             <li>
-              Promedio:<b>{waste.carton.promedio} Comp.</b>
+              Promedio:<b>{waste.carton.promedio && waste.carton.promedio} Comp.</b>
             </li>
             <li>
-              Máximo:<b>{waste.carton.maximo} Comp.</b>
+              Máximo:<b>{waste.carton.maximo && waste.carton.maximo} Comp.</b>
             </li>
             <li>
-              Mínimo:<b>{waste.carton.minimo} Comp.</b>
+              Mínimo:<b>{waste.carton.minimo && waste.carton.minimo} Comp.</b>
             </li>
           </div>
         </div>

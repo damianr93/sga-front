@@ -10,11 +10,14 @@ const xLabels = [
   'JUNIO',
   'JULIO',
   'AGOSTO',
+  'SEPTIEMBRE',
+  'OCTUBRE',
+  'NOVIEMBRE'
 ];
 
 type Serie = {
-  medidoPor: string;
-  measure: number;
+  createdBy: string;
+  measurement: number;
   createdAt: string;
   _id:string
 };
@@ -22,7 +25,7 @@ type Serie = {
 export default function SimpleLineChart({serie}: {serie: Serie[]}) {
 
   const serieChart = serie.map((registro) => {
-    return registro.measure
+    return registro.measurement
   })
 
   return (

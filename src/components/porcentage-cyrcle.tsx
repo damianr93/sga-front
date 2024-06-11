@@ -1,10 +1,10 @@
 import { PieChart } from '@mui/x-charts/PieChart';
 
 
-export default function PorcentageCyrcle({data}:any) {
+export default function PorcentageCyrcle({ data }: any) {
 
   const extractSeries = (data: any) => {
-    const selectedKeys = ['especial', 'metal', 'generales'];
+    const selectedKeys = ['especial', 'metal', 'generales', 'agua', 'aguaLavadero'];
     return selectedKeys
       .filter(key => data[key] && data[key].serie)
       .map((key, index) => ({
@@ -17,6 +17,7 @@ export default function PorcentageCyrcle({data}:any) {
   const seriesList = extractSeries(data);
 
   return (
+
     <PieChart
       series={[
         {
@@ -27,5 +28,7 @@ export default function PorcentageCyrcle({data}:any) {
       ]}
       height={200}
     />
+
+
   );
 }

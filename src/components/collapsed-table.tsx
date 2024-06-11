@@ -90,7 +90,7 @@ function Row(props: { row: ReturnType<typeof createData> }) {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {row.historial.map((historyRow) => (
+                  {row.historial && row.historial.map((historyRow) => (
                     <TableRow key={historyRow.id}>
                       <TableCell component="th" scope="row" align="center">
                         {historyRow.createdAt}

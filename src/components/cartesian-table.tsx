@@ -11,14 +11,16 @@ const xLabels = [
   "ABRIL",
   "MAYO",
   "JUNIO",
-  "JULIO",
-  "AGOSTO",
+  'JULIO',
+  'AGOSTO',
+  'SEPTIEMBRE',
+
 ];
 
 export default function CartesianTable({ data }: any) {
 
   const extractSeries = (data: any) => {
-    const selectedKeys = ['especial', 'metal', 'generales'];
+    const selectedKeys = ['especial', 'metal', 'generales', "agua", "aguaLavadero"];
     return selectedKeys
       .filter(key => data[key] && data[key].serie)
       .map(key => ({

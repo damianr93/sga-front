@@ -1,6 +1,6 @@
-const api = 'http://localhost:3000';
+import { API } from "../API"
 
-const urlWaste = `${api}/wastes-data`
+const urlWaste = `${API}/wastes-data`
 
 
 export const getWastes = async () => {

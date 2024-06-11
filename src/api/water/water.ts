@@ -1,12 +1,14 @@
 import { API } from "../API";
 
-const url = `${API}/energy`
 
-const getEnergy = async () => {
+const urlWaste = `${API}/water-data`
+
+
+export const getWater = async () => {
 
     // const token = localStorage.getItem('token');
 
-    const resp = await fetch(url, {
+    const resp = await fetch(urlWaste, {
         method: "GET",
         headers: {
             'Content-Type': 'application/json',
@@ -17,5 +19,3 @@ const getEnergy = async () => {
         .then((res) => res.json())
     return resp
 }
-
-export default getEnergy

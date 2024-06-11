@@ -1,10 +1,10 @@
-import { Dashboard } from "./pages/dashboard"
+import { AppRouter } from "./router/AppRouter"
 
 function App() {
 
   return (
     <>
-    <Dashboard/>
+    <AppRouter/>
     </>
 
   )
