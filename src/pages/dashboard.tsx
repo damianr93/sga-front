@@ -2,9 +2,11 @@ import { useState } from "react"
 import { Waste } from "../components/waste/waste"
 import { WaterConsumption } from "../components/water/water"
 import { Energy } from "../components/energy/energy"
+import {useNavigate } from "react-router-dom"
 
 export const Dashboard = () => {
     const [optionSelected, setOptionSelected] = useState('')
+    const navigate = useNavigate()
 
     const handleSelectOption = (option:string) => {
         setOptionSelected(option)
@@ -22,9 +24,13 @@ export const Dashboard = () => {
                 return <Waste/>
             break
         }
-        
-
     }
+    
+    const handleCargaDatos = () => {
+        navigate("/load-data")
+    }
+
+
 
     return (
         <div className="dashboard-container">
@@ -36,6 +42,7 @@ export const Dashboard = () => {
                     <button onClick={() => handleSelectOption('Energia')} className="btn btn-primary m-3">ENERGIA</button>
                     <button onClick={() => handleSelectOption('Agua')} className="btn btn-primary m-3">AGUA</button>
                     <button onClick={() => handleSelectOption('Residuos')} className="btn btn-primary m-3">RESIDUOS</button>
+                    <button onClick={() => handleCargaDatos()} className="btn btn-link m-3">CARGA DE DATOS</button>
                 </div>
             </div>
             <div className="dashboard-main">
