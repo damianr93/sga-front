@@ -36,7 +36,7 @@ export const Dashboard = () => {
         <div className="dashboard-container">
             <div className="dashboard-nav d-flex flex-column justify-content-center ">
                 <div className="img-logo-container">
-                    <img src="./src/assets/Nuevo-BOS2.png" alt=""></img>
+                    <img src="./public/img/Nuevo-BOS2.png" alt=""></img>
                 </div>
                 <div className="d-flex flex-column justify-content-center w-75">
                     <button onClick={() => handleSelectOption('Energia')} className="btn btn-primary m-3">ENERGIA</button>
