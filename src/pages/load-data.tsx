@@ -1,11 +1,15 @@
-import { FormEvent } from "react";
+import { FormEvent, useState } from "react";
 import { useForm } from "../hooks/useForm";
 import postEnergy from "../api/energy/create-energy";
 import { postMetalicos, postSpecialLiquids, postSpecialWastes, postWastes } from "../api/waste/create-wastes";
 import { postWashWater, postWater } from "../api/water/create-water";
+import { CircularProgress } from "@mui/material";
 
 
 export const LoadData = () => {
+    const [loading, setLoading] = useState(false)
+    const [errorMessage, setErrorMessage] = useState('')
+    const [successMessage, setSuccessMessage] = useState('')
 
     const { onInputChange, tipo, user, cantidad } = useForm({
         tipo: '',
@@ -14,32 +18,51 @@ export const LoadData = () => {
 
     });
 
-    const handleSubmit = (event: FormEvent<HTMLFormElement>) => {
-        event.preventDefault();
-        switch (tipo) {
-            case 'aguaLav':
-                postWashWater({ createdBy: user, cantidad })
-                break
-            case 'aguaGral':
-                postWater({ createdBy: user, cantidad })
-                break
-            case 'energia':
-                postEnergy({ createdBy: user, cantidad });
-                break
-            case 'y48':
-                postSpecialWastes({ createdBy: user, cantidad });
-                break
-            case 'metalicos':
-                postMetalicos({ createdBy: user, cantidad });
-                break
-            case 'generales':
-                postWastes({ createdBy: user, cantidad });
-                break
-            case 'y8':
-                postSpecialLiquids({ createdBy: user, cantidad });
-                break
+    const handleSubmit = async (event: FormEvent<HTMLFormElement>) => {
 
+        event.preventDefault();
+        setLoading(true)
+
+        try {
+
+            switch (tipo) {
+                case 'aguaLav':
+                    await postWashWater({ createdBy: user, cantidad });
+                    break;
+                case 'aguaGral':
+                    await postWater({ createdBy: user, cantidad });
+                    break;
+                case 'energia':
+                    await postEnergy({ createdBy: user, cantidad });
+                    break;
+                case 'y48':
+                    await postSpecialWastes({ createdBy: user, cantidad });
+                    break;
+                case 'metalicos':
+                    await postMetalicos({ createdBy: user, cantidad });
+                    break;
+                case 'generales':
+                    await postWastes({ createdBy: user, cantidad });
+                    break;
+                case 'y8':
+                    await postSpecialLiquids({ createdBy: user, cantidad });
+                    break;
+                default:
+                setLoading(false)
+                return setErrorMessage("Seleccione el tipo de elemento medido");                    
+                
+            }
+
+            setSuccessMessage("Datos cargados exitosamente");
+            setErrorMessage("");
+
+        } catch (error) {
+
+            setSuccessMessage("");
+            setErrorMessage("Error al cargar los datos");
         }
+
+        setLoading(false);
     }
     return (
         <div className="container mt-5">
@@ -51,6 +74,7 @@ export const LoadData = () => {
                         onChange={onInputChange}
                         value={tipo}
                     >
+                        <option>Seleccione una opción</option>
                         <option value="aguaLav">Agua Lavadero</option>
                         <option value="aguaGral">Agua General</option>
                         <option value="energia">Energia</option>
@@ -87,7 +111,16 @@ export const LoadData = () => {
                     />
                 </div>
                 <button type="submit" className="btn btn-primary">Enviar</button>
+
             </form>
+
+            {loading &&
+                <div className="w-100 d-flex">
+                    <CircularProgress color="success" className="m-auto" />
+                </div>
+            }
+            {successMessage && <div className="alert alert-success mt-5">{successMessage}</div>}
+            {errorMessage && <div className="alert alert-danger mt-5">{errorMessage}</div>}
         </div>
     )
 }

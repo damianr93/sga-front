@@ -14,7 +14,6 @@ export const WaterConsumption = () => {
 
                 const dataWater = await getWater();
                 setWater(dataWater);
-                console.log(water)
 
             } catch (error) {
                 console.error("Error al obtener datos:", error);
