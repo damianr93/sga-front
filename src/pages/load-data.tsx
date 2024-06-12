@@ -7,7 +7,7 @@ import { postWashWater, postWater } from "../api/water/create-water";
 
 export const LoadData = () => {
 
-    const { formState, onInputChange, tipo, user, cantidad } = useForm({
+    const { onInputChange, tipo, user, cantidad } = useForm({
         tipo: '',
         user: '',
         cantidad: '',
