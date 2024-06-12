@@ -4,12 +4,14 @@ import postEnergy from "../api/energy/create-energy";
 import { postMetalicos, postSpecialLiquids, postSpecialWastes, postWastes } from "../api/waste/create-wastes";
 import { postWashWater, postWater } from "../api/water/create-water";
 import { CircularProgress } from "@mui/material";
+import { useNavigate } from "react-router-dom";
 
 
 export const LoadData = () => {
     const [loading, setLoading] = useState(false)
     const [errorMessage, setErrorMessage] = useState('')
     const [successMessage, setSuccessMessage] = useState('')
+    const navigate = useNavigate()
 
     const { onInputChange, tipo, user, cantidad } = useForm({
         tipo: '',
@@ -111,7 +113,7 @@ export const LoadData = () => {
                     />
                 </div>
                 <button type="submit" className="btn btn-primary">Enviar</button>
-
+                <button onClick={() => navigate('/dashboard')} className="btn btn-info m-5">Volver</button>
             </form>
 
             {loading &&
