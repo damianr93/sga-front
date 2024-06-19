@@ -62,3 +62,9 @@
   justify-content: space-between;
   align-items: center;
 }
+
+.politics-container {
+  width: 75%;
+  display: flex;
+  justify-content: center;
+}

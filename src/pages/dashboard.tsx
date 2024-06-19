@@ -27,7 +27,7 @@ export const Dashboard = () => {
     }
     
     const handleCargaDatos = () => {
-        navigate("/load-data")
+        navigate("/load-data")  
     }
 
 

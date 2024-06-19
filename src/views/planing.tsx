@@ -3,7 +3,7 @@
 export const Planing = () => {
     return (
         <>
-            <section className="main-section planning">
+            <section className="">
                 <h1>Planificación</h1>
                 <div>
                     <p>
