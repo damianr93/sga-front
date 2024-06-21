@@ -1,34 +1,34 @@
-import { useState } from "react"
-import { Waste } from "../components/waste/waste"
-import { WaterConsumption } from "../components/water/water"
-import { Energy } from "../components/energy/energy"
-import {useNavigate } from "react-router-dom"
+import { useState } from 'react'
+import { Waste } from '../components/waste/waste'
+import { WaterConsumption } from '../components/water/water'
+import { Energy } from '../components/energy/energy'
+import {useNavigate } from 'react-router-dom'
 
 export const Dashboard = () => {
-    const [optionSelected, setOptionSelected] = useState('')
-    const navigate = useNavigate()
+    const [optionSelected, setOptionSelected] = useState('');
+    const navigate = useNavigate();
 
     const handleSelectOption = (option:string) => {
-        setOptionSelected(option)
-    }
+        setOptionSelected(option);
+    };
 
     const renderContent = (option:string) => {
         switch (option) {
             case 'Energia':
-                return <Energy/>
-            break
+                return <Energy/>;
+            break;
             case 'Agua':
-                return <WaterConsumption/>
-            break
+                return <WaterConsumption/>;
+            break;
             case 'Residuos':
-                return <Waste/>
-            break
-        }
-    }
+                return <Waste/>;
+            break;
+        };
+    };
     
     const handleCargaDatos = () => {
-        navigate("/load-data")  
-    }
+        navigate("/load-data");
+    };
 
 
 
@@ -49,7 +49,7 @@ export const Dashboard = () => {
                 {optionSelected && renderContent(optionSelected)  }
             </div>
         </div>
-    )
-}
+    );
+};
 
 

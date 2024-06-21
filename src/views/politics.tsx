@@ -1,25 +1,64 @@
-import { Box, Grid, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material"
+import { Box, Button, Grid, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material"
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import { Edit } from "@mui/icons-material";
 
 
 export const Politics = () => {
     return (
         <>
-            <Grid container direction='row' justifyContent='center' alignItems='center'>
-                <Grid item xs={12} sm={8} md={8}>
-                    <Typography variant="h1">Política de la empresa</Typography>
-                    <Box mt={2}>
-                        <Typography variant="body1">
+            <Grid container
+                direction='row'
+                justifyContent='center'
+                alignItems='center'
+                sx={{
+                    backgroundColor: "rgba(255, 255, 255, 0.653)", 
+                    borderRadius: "10px",
+                    width: "75%",
+                    margin:"5px",
+                }}>
+
+                <Grid item
+                    xs={12}
+                    sm={8}
+                    md={8}>
+
+                    <Typography
+                        variant="h1"
+                        sx={{
+                            fontSize: 60,
+                            textAlign: 'center',
+                            '&:hover .editButton': {
+                                opacity: 1,
+                            },
+                            '&:hover': {
+                                cursor: 'pointer',
+                            }
+                        }}
+                    >
+                        Política de la empresa
+                        <Button
+                            className="editButton"
+                            sx={{
+                                opacity: 0.2,
+                                transition: 'opacity 0.3s',
+                            }}
+                        >
+                            <Edit />
+                        </Button>
+                    </Typography>
+
+                    <Box mt={2} >
+                        <Typography variant="body1" sx={{fontWeight:"bold"}}>
                             En línea con nuestro compromiso de contribuir al Desarrollo Sustentable, BOSETTI Automotores S.R.L. tiene un enfoque sistemático hacia la Salud, la Seguridad y la Gestión Ambiental a fin de lograr un mejoramiento continuo en su desempeño.
                         </Typography>
-                        <Typography variant="body1" mt={2}>
+                        <Typography variant="body1" mt={2} sx={{fontWeight:"bold"}}>
                             BOSETTI Automotores S.R.L. aborda estas cuestiones con la misma atención que cualquier otra actividad crítica de sus negocios, fijando metas para mejorar.
                         </Typography>
-                        <Typography variant="body1" mt={2}>
+                        <Typography variant="body1" mt={2} sx={{fontWeight:"bold"}}>
                             BOSETTI AUTOMOTORES S.R.L. en la comercialización y servicios posventa de vehículos se compromete a:
                         </Typography>
                     </Box>
-                    <List>
+                    <List >
                         {[
                             "Un control y uso racional de los recursos renovables, en el lavado de vehículos, y en el uso de la energía eléctrica dentro de la empresa",
                             "Optimizar la utilización de productos químicos focalizados en el cuidado del medio ambiente",
@@ -30,7 +69,7 @@ export const Politics = () => {
                             "Contribuir a la concientización en materia de cuidado medioambiental"
                         ].map((text, index) => (
                             <ListItem key={index}>
-                                <ListItemIcon>
+                                <ListItemIcon >
                                     <ArrowRightIcon fontSize="small" />
                                 </ListItemIcon>
                                 <ListItemText primary={text} />
@@ -38,9 +77,9 @@ export const Politics = () => {
                         ))}
                     </List>
                 </Grid>
-                <Grid item xs={12} sm={4} md={4}>
+                {/* <Grid item xs={12} sm={4} md={4}>
                     <img src="../public/img/environment-2196690_1280.jpg" alt="" width={500}/>
-                </Grid>
+                </Grid> */}
             </Grid>
         </>
     )
