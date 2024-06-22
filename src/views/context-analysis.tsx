@@ -28,6 +28,25 @@ export const ContextAnalysis = () => {
             <Grid item xs={6}>
                 <Paper style={{ padding: '16px', height: '100%' }}>
 
+                    <Typography variant="h6">Debilidades</Typography>
+
+                    {
+                        itemsFoda && itemsFoda.filter((elem) => elem.type === "Debilidad").map((item, id) =>
+                            <ListItem key={id}>
+                                <LabelImportantIcon fontSize="small" />
+                                <Grid container>
+                                    <ListItemText primary={item.message} />
+                                </Grid>
+                            </ListItem>
+                        )
+                    }
+
+                </Paper>
+            </Grid>
+
+            <Grid item xs={6}>
+                <Paper style={{ padding: '16px', height: '100%' }}>
+
                     <Typography variant="h6">Oportunidades</Typography>
 
                     {
@@ -46,24 +65,6 @@ export const ContextAnalysis = () => {
                 </Paper>
             </Grid>
 
-            <Grid item xs={6}>
-                <Paper style={{ padding: '16px', height: '100%' }}>
-
-                    <Typography variant="h6">Debilidades</Typography>
-
-                    {
-                        itemsFoda && itemsFoda.filter((elem) => elem.type === "Debilidad").map((item, id) =>
-                            <ListItem key={id}>
-                                <LabelImportantIcon fontSize="small" />
-                                <Grid container>
-                                    <ListItemText primary={item.message} />
-                                </Grid>
-                            </ListItem>
-                        )
-                    }
-
-                </Paper>
-            </Grid>
             <Grid item xs={6}>
                 <Paper style={{ padding: '16px', height: '100%' }}>
 

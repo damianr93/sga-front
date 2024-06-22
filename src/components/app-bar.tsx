@@ -1,16 +1,32 @@
 import { AppBar, Button, Grid, IconButton, Toolbar, Typography } from '@mui/material';
 import { LogoutOutlined, MenuOutlined } from '@mui/icons-material';
 import { useNavigate } from 'react-router-dom';
+import { PlanningLayout } from '../layouts/planning';
+import { HomeLayout } from '../layouts/home';
+import { Dispatch, SetStateAction } from 'react';
+import { Dashboard } from '../pages/dashboard';
+
+interface NavBarProps {
+    setViewSelected: Dispatch<SetStateAction<React.ReactElement | null>>;
+}
 
 
-export const NavBar = ({ drawerWidth = 0 }) => {
+export const NavBar: React.FC<NavBarProps> = ({ setViewSelected }) => {
     const navigate = useNavigate();
 
     const renderContent = (option: string) => {
 
         switch (option) {
+            case 'Home':
+                setViewSelected(<HomeLayout />)
+                break
+
+            case 'Planning':
+                setViewSelected(<PlanningLayout />)
+                break
+
             case 'Dashboard':
-                navigate('/dashboard')
+                setViewSelected(<Dashboard/>)
                 break
             default:
                 navigate('/')
@@ -24,7 +40,7 @@ export const NavBar = ({ drawerWidth = 0 }) => {
             position='fixed'
             sx={{
                 width: { sm: '100%' },
-                height: `${drawerWidth}px`
+                height: `65px`
             }}
         >
             <Toolbar>
@@ -50,8 +66,8 @@ export const NavBar = ({ drawerWidth = 0 }) => {
 
                     <Grid item>
 
-                        <Button color="inherit">Home</Button>
-                        <Button color="inherit">Planificación</Button>
+                        <Button color="inherit" onClick={() => renderContent('Home')}>Home</Button>
+                        <Button color="inherit" onClick={() => renderContent('Planning')}>Planificación</Button>
                         <Button color="inherit">PG</Button>
                         <Button color="inherit">IT</Button>
                         <Button color="inherit" onClick={() => renderContent('Dashboard')}>DASHBOARD</Button>

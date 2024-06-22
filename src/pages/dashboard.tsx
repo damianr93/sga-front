@@ -2,30 +2,33 @@ import { useState } from 'react'
 import { Waste } from '../components/waste/waste'
 import { WaterConsumption } from '../components/water/water'
 import { Energy } from '../components/energy/energy'
-import {useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 export const Dashboard = () => {
     const [optionSelected, setOptionSelected] = useState('');
     const navigate = useNavigate();
 
-    const handleSelectOption = (option:string) => {
+    const handleSelectOption = (option: string) => {
         setOptionSelected(option);
     };
 
-    const renderContent = (option:string) => {
+    const renderContent = (option: string) => {
         switch (option) {
             case 'Energia':
-                return <Energy/>;
-            break;
+                return <Energy />;
+                break;
             case 'Agua':
-                return <WaterConsumption/>;
-            break;
+                return <WaterConsumption />;
+                break;
             case 'Residuos':
-                return <Waste/>;
-            break;
+                return <Waste />;
+                break;
+            case 'Volver':
+                navigate('/');
+                break;
         };
     };
-    
+
     const handleCargaDatos = () => {
         navigate("/load-data");
     };
@@ -33,7 +36,7 @@ export const Dashboard = () => {
 
 
     return (
-        <div className="dashboard-container">
+        <div className="dashboard-container" >
             <div className="dashboard-nav d-flex flex-column justify-content-center ">
                 <div className="img-logo-container">
                     <img src="/img/Nuevo-BOS2.png" alt=""></img>
@@ -49,6 +52,7 @@ export const Dashboard = () => {
                 {optionSelected && renderContent(optionSelected)  }
             </div>
         </div>
+
     );
 };
 

@@ -14,7 +14,8 @@
   grid-template-columns: 0.6fr 1fr 1.1fr; 
   grid-template-rows: auto;
   gap: 0px 0px; 
-  height: 100vh;
+  margin-top: 65px;
+  min-height: calc(100vh - 65px);
   grid-template-areas: 
     "dashboard-nav dashboard-main dashboard-main"
     "dashboard-nav dashboard-main dashboard-main"
@@ -36,7 +37,7 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: column ;
-  background-color: rgb(248, 255, 252);
+  background-color: rgba(255, 255, 255, 0.918);
 }
 
 .img-logo-container {

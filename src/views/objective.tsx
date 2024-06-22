@@ -11,7 +11,7 @@ export const Objective = () => {
                 justifyContent='center'
                 alignItems='center'
                 sx={{
-                    backgroundColor: "rgba(255, 255, 255, 0.653)",
+                    backgroundColor: "rgba(255, 255, 255, 0.853)",
                     borderRadius: "10px",
                     width: "75%",
                 }}>
