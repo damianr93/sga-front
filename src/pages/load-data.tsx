@@ -5,6 +5,7 @@ import { postMetalicos, postSpecialLiquids, postSpecialWastes, postWastes } from
 import { postWashWater, postWater } from "../api/water/create-water";
 import { CircularProgress } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import CompressedCardboard from "../api/carton/carton";
 
 
 export const LoadData = () => {
@@ -49,10 +50,13 @@ export const LoadData = () => {
                 case 'y8':
                     await postSpecialLiquids({ createdBy: user, cantidad });
                     break;
+                case 'compressedCardboard':
+                    await CompressedCardboard({ createdBy: user, cantidad });
+                    break;
                 default:
-                setLoading(false)
-                return setErrorMessage("Seleccione el tipo de elemento medido");                    
-                
+                    setLoading(false)
+                    return setErrorMessage("Seleccione el tipo de elemento medido");
+
             }
 
             setSuccessMessage("Datos cargados exitosamente");
@@ -84,6 +88,7 @@ export const LoadData = () => {
                         <option value="metalicos">Residuos Metalicos</option>
                         <option value="generales">Residuos Generales</option>
                         <option value="y8">Y8</option>
+                        <option value="compressedCardboard">Carton comprimido</option>
                     </select>
                 </div>
                 <div className="mb-3">

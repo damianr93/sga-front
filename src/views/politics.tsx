@@ -1,20 +1,23 @@
-import { Box, Button, Grid, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material"
+import { Box, Button, Container, Grid, List, ListItem, ListItemIcon, ListItemText, Typography } from "@mui/material"
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import { Edit } from "@mui/icons-material";
+import { Close, Edit } from "@mui/icons-material";
+import { useState } from "react";
 
 
 export const Politics = () => {
+    const [editing, setEditing] = useState(false)
     return (
         <>
+           
             <Grid container
                 direction='row'
                 justifyContent='center'
                 alignItems='center'
                 sx={{
-                    backgroundColor: "rgba(255, 255, 255, 0.853)", 
+                    backgroundColor: "rgba(255, 255, 255, 0.853)",
                     borderRadius: "10px",
                     width: "75%",
-                    margin:"5px",
+                    margin: "5px",
                 }}>
 
                 <Grid item
@@ -37,6 +40,7 @@ export const Politics = () => {
                     >
                         Política de la empresa
                         <Button
+                            onClick={() => setEditing(true)}
                             className="editButton"
                             sx={{
                                 opacity: 0.2,
@@ -48,13 +52,13 @@ export const Politics = () => {
                     </Typography>
 
                     <Box mt={2} >
-                        <Typography variant="body1" sx={{fontWeight:"bold"}}>
+                        <Typography variant="body1" sx={{ fontWeight: "bold" }}>
                             En línea con nuestro compromiso de contribuir al Desarrollo Sustentable, BOSETTI Automotores S.R.L. tiene un enfoque sistemático hacia la Salud, la Seguridad y la Gestión Ambiental a fin de lograr un mejoramiento continuo en su desempeño.
                         </Typography>
-                        <Typography variant="body1" mt={2} sx={{fontWeight:"bold"}}>
+                        <Typography variant="body1" mt={2} sx={{ fontWeight: "bold" }}>
                             BOSETTI Automotores S.R.L. aborda estas cuestiones con la misma atención que cualquier otra actividad crítica de sus negocios, fijando metas para mejorar.
                         </Typography>
-                        <Typography variant="body1" mt={2} sx={{fontWeight:"bold"}}>
+                        <Typography variant="body1" mt={2} sx={{ fontWeight: "bold" }}>
                             BOSETTI AUTOMOTORES S.R.L. en la comercialización y servicios posventa de vehículos se compromete a:
                         </Typography>
                     </Box>
@@ -77,10 +81,8 @@ export const Politics = () => {
                         ))}
                     </List>
                 </Grid>
-                {/* <Grid item xs={12} sm={4} md={4}>
-                    <img src="../public/img/environment-2196690_1280.jpg" alt="" width={500}/>
-                </Grid> */}
             </Grid>
         </>
     )
 }
+
