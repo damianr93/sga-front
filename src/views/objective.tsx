@@ -1,9 +1,13 @@
 import { Edit } from '@mui/icons-material';
 import { Button, Grid, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
+import React from 'react';
 
+interface ObjectiveProps {
+    setEditing: React.Dispatch<React.SetStateAction<boolean>>;
+}
 
-export const Objective = () => {
+export const Objective:React.FC<ObjectiveProps> = ({setEditing}) => {
     return (
         <>
             <Grid container
@@ -36,6 +40,7 @@ export const Objective = () => {
                     >
                         Objetivos
                         <Button
+                            onClick={() => setEditing(true)}
                             className="editButton"
                             sx={{
                                 opacity: 0.2,
