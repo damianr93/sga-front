@@ -12,6 +12,9 @@ import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Edit } from "@mui/icons-material";
 import { useEffect, useState } from "react";
 import { getPolitics } from "../api/politics/politics";
+import { useDispatch } from "react-redux";
+import { getPoliticsThunks } from "../store/slices/politics/thunks";
+import { AppDispatch } from "../store/store";
 
 interface PoliticsProps {
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
@@ -21,8 +24,13 @@ interface PoliticsProps {
 export const Politics: React.FC<PoliticsProps> = ({ setEditing }) => {
   const [politica, setPolitica] = useState<any>()
   const [intro, setIntro] = useState<any>()
+
+  const dispatch = useDispatch<AppDispatch>();
   
   useEffect(() => {
+
+    dispatch(getPoliticsThunks());
+
     const fetchPolitics = async () => {
       try {
 
