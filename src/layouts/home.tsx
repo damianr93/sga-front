@@ -8,20 +8,24 @@ import { EditForm } from "../components/editForm";
 export const HomeLayout = () => {
   const [editing, setEditing] = useState(false);
   return (
-    <Box
-      component="main"
-      sx={{
-        display: "flex",
-        alignItems: "center",
-        flexGrow: 1,
-        flexDirection: "column",
-        p: 5,
-      }}
-    >
-      <Toolbar />
-      {editing && <EditForm setEditing={setEditing}/>}
-      <Politics setEditing={setEditing} />
-      <Objective setEditing={setEditing} />
-    </Box>
+    <>
+      {editing && <EditForm setEditing={setEditing} />}
+      <Box
+        component="main"
+        sx={{
+          display: "flex",
+          alignItems: "center",
+          flexGrow: 1,
+          flexDirection: "column",
+          p: 5,
+        }}
+      >
+
+        <Toolbar />
+        <Politics setEditing={setEditing} />
+        <Objective setEditing={setEditing} />
+      </Box>
+    </>
+
   );
 };

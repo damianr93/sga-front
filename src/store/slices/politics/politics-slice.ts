@@ -7,12 +7,13 @@ export const politicSlice = createSlice({
   initialState: {
     id: "",
     introduction: "Defina una introduccion para las politicas de su empresa",
-    politics:[String]
+    politics:[]
   
   },
   reducers: {
-    setPolitics: (state) => {
-      console.log(state)
+    setPolitics: (state, action) => {
+      state.politics = action.payload.politics
+      state.introduction = action.payload.introduction
     },
   },
 })

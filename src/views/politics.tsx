@@ -10,9 +10,8 @@ import {
 } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Edit } from "@mui/icons-material";
-import { useEffect, useState } from "react";
-import { getPolitics } from "../api/politics/politics";
-import { useDispatch } from "react-redux";
+import { useEffect} from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { getPoliticsThunks } from "../store/slices/politics/thunks";
 import { AppDispatch } from "../store/store";
 
@@ -20,31 +19,26 @@ interface PoliticsProps {
   setEditing: React.Dispatch<React.SetStateAction<boolean>>;
 }
 
+interface PoliticsState {
+  politics: string[];
+  introduction: string;
+}
+
+interface RootState {
+  politics: PoliticsState;
+}
+
+
 
 export const Politics: React.FC<PoliticsProps> = ({ setEditing }) => {
-  const [politica, setPolitica] = useState<any>()
-  const [intro, setIntro] = useState<any>()
+
+  const {politics, introduction} = useSelector((state:RootState) => state.politics)
 
   const dispatch = useDispatch<AppDispatch>();
   
   useEffect(() => {
 
     dispatch(getPoliticsThunks());
-
-    const fetchPolitics = async () => {
-      try {
-
-          const {introduction, politics} = await getPolitics();
-          setPolitica(politics)
-          setIntro(introduction)
-
-      } catch (error) {
-
-          console.error('Error al obtener los datos:', error);
-      }
-  }
-
-  fetchPolitics()
   
   }, [])
   
@@ -96,12 +90,12 @@ export const Politics: React.FC<PoliticsProps> = ({ setEditing }) => {
               sx={{ whiteSpace: "pre-wrap", fontWeight: "bold", width:"100%"}}
             >
             {
-              intro
+              introduction && introduction
             }
             </Typography> 
           </Box>
           <List>
-            {politica && politica.map((text) => (
+            {politics && politics.map((text) => (
               <ListItem key={text}>
                 <ListItemIcon>
                   <ArrowRightIcon fontSize="small" />
