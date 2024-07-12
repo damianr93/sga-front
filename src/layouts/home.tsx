@@ -3,7 +3,7 @@ import { Politics } from "../views/politics";
 import { Toolbar } from "@mui/material";
 import { Objective } from "../views/objective";
 import { useState } from "react";
-import { EditForm } from "../components/editForm";
+import { EditForm } from "../components/politics-form";
 
 export const HomeLayout = () => {
   const [editing, setEditing] = useState(false);
