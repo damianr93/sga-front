@@ -20,7 +20,7 @@ interface RootState {
   politics: PoliticsState;
 }
 
-export const PoliticsForm: React.FC<EditFormProps> = ({ setEditing }) => {
+export const TargetsForm: React.FC<EditFormProps> = ({ setEditing }) => {
   const dispatch = useDispatch<AppDispatch>();
   const { id, politics, introduction } = useSelector((state: RootState) => state.politics);
 

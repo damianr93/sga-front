@@ -3,13 +3,13 @@ import { Politics } from "../views/politics";
 import { Toolbar } from "@mui/material";
 import { Objective } from "../views/objective";
 import { useState } from "react";
-import { EditForm } from "../components/politics-form";
+import { FormScreen } from "./form-screen";
 
 export const HomeLayout = () => {
   const [editing, setEditing] = useState(false);
   return (
     <>
-      {editing && <EditForm setEditing={setEditing} />}
+      {editing && <FormScreen setEditing={setEditing} />}
       <Box
         component="main"
         sx={{
