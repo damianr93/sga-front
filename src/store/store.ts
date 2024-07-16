@@ -1,9 +1,12 @@
 import { Action, configureStore, ThunkAction } from '@reduxjs/toolkit'
 import { politicSlice } from './slices/politics/politics-slice'
+import { editFormsSlice } from './slices/edit-forms/edit-slice'
+
 
 export const store = configureStore({
   reducer: {
-    politics: politicSlice.reducer
+    politics: politicSlice.reducer,
+    editForms: editFormsSlice.reducer,
   },
 })
 

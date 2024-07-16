@@ -22,9 +22,10 @@ export const getPoliticsThunks = (): AppThunk => {
   };
 };
 
-export const postPoliticsThunks = (id:string, newIntroduction:string, newPoliticts:string[] ): AppThunk => { 
+export const postPoliticsThunks = (id:string, newIntroduction:string, newPoliticts:string[], targets:string[] ): AppThunk => { 
   return async (dispatch) => {
     try {
+      console.log(id, newIntroduction, newPoliticts, targets)
 
       if(!id) {
         await fetch(`${API}/politics}`, {
@@ -35,7 +36,8 @@ export const postPoliticsThunks = (id:string, newIntroduction:string, newPolitic
           },
           body: JSON.stringify({
             introduction: newIntroduction,
-            politics:newPoliticts
+            politics:newPoliticts,
+            targets: targets
           })
         });
       }
@@ -48,13 +50,15 @@ export const postPoliticsThunks = (id:string, newIntroduction:string, newPolitic
         },
         body: JSON.stringify({
           introduction: newIntroduction,
-          politics:newPoliticts
+          politics:newPoliticts,
+          targets: targets
         })
       });
 
       dispatch(updatePolitics({
         newIntroduction, 
-        newPoliticts
+        newPoliticts,
+        targets
       }));
     } catch (error) {
       console.error('Failed to fetch politics:', error);

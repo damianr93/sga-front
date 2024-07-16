@@ -4,25 +4,22 @@ import { useDispatch, useSelector } from "react-redux";
 import { useState } from "react";
 import { AppDispatch } from "../store/store";
 import { postPoliticsThunks } from "../store/slices/politics/thunks";
-
-
-interface EditFormProps {
-  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-}
+import { setEditForms } from "../store/slices/edit-forms/edit-slice";
 
 interface PoliticsState {
   id: string;
   politics: string[];
   introduction: string;
+  targets:string[]
 }
 
 interface RootState {
   politics: PoliticsState;
 }
 
-export const PoliticsForm: React.FC<EditFormProps> = ({ setEditing }) => {
+export const PoliticsForm = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const { id, politics, introduction } = useSelector((state: RootState) => state.politics);
+  const { id, politics, introduction, targets } = useSelector((state: RootState) => state.politics);
 
   const [introductionValue, setIntroductionValue] = useState(introduction);
   const [politicsValues, setPoliticsValues] = useState<string[]>(politics);
@@ -50,7 +47,7 @@ export const PoliticsForm: React.FC<EditFormProps> = ({ setEditing }) => {
   }
 
   const onSubmit = () => {
-    dispatch(postPoliticsThunks(id, introductionValue, politicsValues))
+    dispatch(postPoliticsThunks(id, introductionValue, politicsValues, targets))
   }
 
   return (
@@ -69,7 +66,7 @@ export const PoliticsForm: React.FC<EditFormProps> = ({ setEditing }) => {
           <h3>
             Puede editar su informacion
             <Button
-              onClick={() => setEditing(false)}
+              onClick={() => dispatch(setEditForms({from:""}))}
               className="editButton"
               sx={{
                 opacity: 0.2,

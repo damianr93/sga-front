@@ -14,10 +14,8 @@ import { useEffect} from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPoliticsThunks } from "../store/slices/politics/thunks";
 import { AppDispatch } from "../store/store";
+import { setEditForms } from "../store/slices/edit-forms/edit-slice";
 
-interface PoliticsProps {
-  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 interface PoliticsState {
   politics: string[];
@@ -25,15 +23,14 @@ interface PoliticsState {
 }
 
 interface RootState {
+  editForms: any;
   politics: PoliticsState;
 }
 
+export const Politics = () => {
 
-
-export const Politics: React.FC<PoliticsProps> = ({ setEditing }) => {
-
-  const {politics, introduction} = useSelector((state:RootState) => state.politics)
-
+  const {politics, introduction} = useSelector((state:RootState) => state.politics)  
+  
   const dispatch = useDispatch<AppDispatch>();
   
   useEffect(() => {
@@ -73,7 +70,7 @@ export const Politics: React.FC<PoliticsProps> = ({ setEditing }) => {
           >
             Política de la empresa
             <Button
-              onClick={() => setEditing(true)}
+              onClick={() => dispatch(setEditForms({from:"politics"}))}
               className="editButton"
               sx={{
                 opacity: 0.2,

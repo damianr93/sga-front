@@ -1,13 +1,24 @@
 import { Edit } from '@mui/icons-material';
 import { Button, Grid, List, ListItem, ListItemIcon, ListItemText, Typography } from '@mui/material';
 import ArrowRightIcon from '@mui/icons-material/ArrowRight';
-import React from 'react';
+import { AppDispatch } from '../store/store';
+import { useDispatch, useSelector } from 'react-redux';
+import { setEditForms } from '../store/slices/edit-forms/edit-slice';
+import { useEffect } from 'react';
+import { getPoliticsThunks } from '../store/slices/politics/thunks';
 
-interface ObjectiveProps {
-    setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
-export const Objective:React.FC<ObjectiveProps> = ({setEditing}) => {
+export const Objective = () => {
+
+    const  {targets}  = useSelector((state: any) => state.politics)
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+        dispatch(getPoliticsThunks());
+
+    }, [dispatch])
+
     return (
         <>
             <Grid container
@@ -40,7 +51,7 @@ export const Objective:React.FC<ObjectiveProps> = ({setEditing}) => {
                     >
                         Objetivos
                         <Button
-                            onClick={() => setEditing(true)}
+                            onClick={() => dispatch(setEditForms({ from: "targets" }))}
                             className="editButton"
                             sx={{
                                 opacity: 0.2,
@@ -53,10 +64,7 @@ export const Objective:React.FC<ObjectiveProps> = ({setEditing}) => {
 
 
                     <List>
-                        {[
-                            "Que el consumo de agua por vehículo lavado no supere los 68 lts.",
-                            "Que el consumo promedio de energía eléctrica en el segundo trimestre del año no supere los 67424 KWh.",
-                        ].map((text, index) => (
+                        {targets && targets.map((text:any, index:number) => (
                             <ListItem key={index}>
                                 <ListItemIcon>
                                     <ArrowRightIcon fontSize="small" />
@@ -66,9 +74,6 @@ export const Objective:React.FC<ObjectiveProps> = ({setEditing}) => {
                         ))}
                     </List>
                 </Grid>
-                {/* <Grid item xs={12} sm={4} md={4}>
-            <img src="../public/img/environment-2196690_1280.jpg" alt="" width={500}/>
-        </Grid> */}
             </Grid>
         </>
     );

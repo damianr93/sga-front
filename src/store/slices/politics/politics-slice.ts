@@ -7,7 +7,8 @@ export const politicSlice = createSlice({
   initialState: {
     id: "",
     introduction: "Defina una introduccion para las politicas de su empresa",
-    politics:[]
+    politics:[],
+    targets:[],
   
   },
   reducers: {
@@ -15,10 +16,12 @@ export const politicSlice = createSlice({
       state.id = action.payload.id
       state.politics = action.payload.politics
       state.introduction = action.payload.introduction
+      state.targets = action.payload.targets
     },
     updatePolitics: (state, action) => {
       state.introduction = action.payload.newIntroduction
       state.politics = action.payload.newPoliticts
+      state.targets = action.payload.targets
     }
   },
 })

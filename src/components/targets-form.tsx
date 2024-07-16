@@ -1,147 +1,115 @@
 import { Add, Close, Delete } from "@mui/icons-material";
 import { Box, Button, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
-import { useState } from "react";
 import { AppDispatch } from "../store/store";
-import { postPoliticsThunks } from "../store/slices/politics/thunks";
+
+import { setEditForms } from "../store/slices/edit-forms/edit-slice";
+import { useState } from "react";
+import {  postPoliticsThunks } from "../store/slices/politics/thunks";
 
 
-interface EditFormProps {
-  setEditing: React.Dispatch<React.SetStateAction<boolean>>;
-}
+export const TargetsForm = () => {
 
-interface PoliticsState {
-  id: string;
-  politics: string[];
-  introduction: string;
-}
+  const { id, introduction, politics, targets } = useSelector((state: any) => state.politics)
 
-interface RootState {
-  politics: PoliticsState;
-}
-
-export const TargetsForm: React.FC<EditFormProps> = ({ setEditing }) => {
   const dispatch = useDispatch<AppDispatch>();
-  const { id, politics, introduction } = useSelector((state: RootState) => state.politics);
 
-  const [introductionValue, setIntroductionValue] = useState(introduction);
-  const [politicsValues, setPoliticsValues] = useState<string[]>(politics);
+  const [tgts, setTgts] = useState(targets)
 
-  const handleIntroductionChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setIntroductionValue(event.target.value);
+  const handleTargetsChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const newTargetsValues = [...tgts];
+    newTargetsValues[index] = event.target.value;
+    setTgts(newTargetsValues);
   };
 
-  const handlePoliticsChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    const newPoliticsValues = [...politicsValues];
-    newPoliticsValues[index] = event.target.value;
-    setPoliticsValues(newPoliticsValues);
-  };
-
-  const addPolitics = () => {
-    const newPoliticsValues = [...politicsValues]
-    newPoliticsValues.push(`nueva politica ${newPoliticsValues.length + 1}`)
-    setPoliticsValues(newPoliticsValues)
+  const addTarget = () => {
+    const newTargetsValues = [...tgts]
+    newTargetsValues.push(`nueva politica ${newTargetsValues.length + 1}`)
+    setTgts(newTargetsValues)
   }
 
-  const deletePolitic = (index:number) => {
-    const newPoliticsValues = [...politicsValues]
-    newPoliticsValues.splice(index, 1)
-    setPoliticsValues(newPoliticsValues)
+  const deleteTarget = (index: number) => {
+    const newTargetsValues = [...tgts]
+    newTargetsValues.splice(index, 1)
+    setTgts(newTargetsValues)
   }
 
   const onSubmit = () => {
-    dispatch(postPoliticsThunks(id, introductionValue, politicsValues))
+    dispatch(postPoliticsThunks(id, introduction, politics, tgts))
   }
 
+
   return (
-
-      <Box
-        sx={{
-          backgroundColor: "white",
-          padding: "25px",
-          borderRadius: "5px",
-          width:"900px",
-          maxHeight: "75vh",
-          overflowY: "scroll"
-        }}
-      >
-        <form>
-          <h3>
-            Puede editar su informacion
-            <Button
-              onClick={() => setEditing(false)}
-              className="editButton"
-              sx={{
-                opacity: 0.2,
-                transition: "opacity 0.3s",
-              }}
-            >
-              <Close />
-            </Button>
-          </h3>
-          <TextField
-            id="outlined-textarea"
-            label="Politica de la empresa"
-            variant="outlined"
-            value={introductionValue}
-            onChange={handleIntroductionChange}
-            multiline
-            sx={{
-              marginTop: "5px",
-              width: "100%",
-            }}
-          />
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column"
-            }}
-          >
-            {politicsValues.map((text, index) => (
-              <Box key={index}
-              sx={{
-                display:"flex",
-                justifyContent:"center",
-                alignItems:"center"
-
-              }}
-              >
-                <TextField
-                  id="outlined-textarea"
-                  label={`Politica ${index + 1}`}
-                  variant="outlined"
-                  value={text}
-                  onChange={handlePoliticsChange(index)}
-                  multiline
-                  sx={{
-                    marginTop: "15px",
-                    width: "80%",
-                  }}
-                />
-                <Button
-                onClick={() => deletePolitic(index)}
-                >
-                  <Delete />
-                </Button>
-              </Box>
-
-            ))}
-            <Button
-              onClick={addPolitics}
-            >
-              <Add />
-            </Button>
-          </Box>
+    <Box
+      sx={{
+        backgroundColor: "white",
+        padding: "25px",
+        borderRadius: "5px",
+        width: "900px",
+        maxHeight: "75vh",
+        overflowY: "scroll"
+      }}
+    >
+      <form>
+        <h3>
+          Puede editar sus objetivos
           <Button
-            variant="contained"
-            onClick={onSubmit}
+            onClick={() => dispatch(setEditForms({ from: "" }))}
+            className="editButton"
             sx={{
-              margin: "10px"
+              opacity: 0.2,
+              transition: "opacity 0.3s",
             }}
           >
-            Submit
+            <Close />
           </Button>
-        </form>
-      </Box>
+        </h3>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column"
+          }}
+        >
+          {tgts.map((text: string, index: number) => (
+            <Box
+              key={index}
+              sx={{
+                display: "flex",
+                justifyContent: "center",
+                alignItems: "center"
+              }}
+            >
+              <TextField
+                id="outlined-textarea"
+                label={`Politica ${index + 1}`}
+                variant="outlined"
+                value={text}
+                onChange={handleTargetsChange(index)}
+                multiline
+                sx={{
+                  marginTop: "15px",
+                  width: "80%",
+                }}
+              />
+              <Button onClick={() => deleteTarget(index)}>
+                <Delete />
+              </Button>
+            </Box>
+          ))}
+          <Button onClick={addTarget}>
+            <Add />
+          </Button>
+        </Box>
+        <Button
+          variant="contained"
+          onClick={onSubmit}
+          sx={{
+            margin: "10px"
+          }}
+        >
+          Submit
+        </Button>
+      </form>
+    </Box>
   );
 };

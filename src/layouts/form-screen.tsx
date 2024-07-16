@@ -1,7 +1,33 @@
 import { Box } from "@mui/material"
 import { PoliticsForm } from "../components/politics-form"
+import { TargetsForm } from "../components/targets-form"
+import { useSelector } from "react-redux";
 
-export const FormScreen = ({ setEditing }:any) => {
+interface EditState {
+    from: string
+}
+
+interface RootState {
+    editForms: EditState;
+}
+
+
+export const FormScreen = () => {
+
+    const from = useSelector((state: RootState) => state.editForms.from)
+
+    const formSelected = () => {
+
+        switch (from) {
+            case "targets":
+                return <TargetsForm />
+            case "politics":
+                return <PoliticsForm />
+            default:
+                break;
+        }
+    }
+
     return (
         <Box
             sx={{
@@ -15,7 +41,9 @@ export const FormScreen = ({ setEditing }:any) => {
                 zIndex: 1,
             }}
         >
-            <PoliticsForm setEditing={setEditing}/>
+
+            {formSelected()}
+
         </Box>
     )
 }

@@ -2,14 +2,26 @@ import { Box } from "@mui/system";
 import { Politics } from "../views/politics";
 import { Toolbar } from "@mui/material";
 import { Objective } from "../views/objective";
-import { useState } from "react";
 import { FormScreen } from "./form-screen";
+import { useSelector } from "react-redux";
+
+
+
+interface EditState {
+  state: boolean
+}
+
+interface RootState {
+  editForms: EditState;
+}
 
 export const HomeLayout = () => {
-  const [editing, setEditing] = useState(false);
+  
+  const state = useSelector((state:RootState) => state.editForms.state)
+
   return (
     <>
-      {editing && <FormScreen setEditing={setEditing} />}
+      {state && <FormScreen />}
       <Box
         component="main"
         sx={{
@@ -22,8 +34,8 @@ export const HomeLayout = () => {
       >
 
         <Toolbar />
-        <Politics setEditing={setEditing} />
-        <Objective setEditing={setEditing} />
+        <Politics />
+        <Objective />
       </Box>
     </>
 
