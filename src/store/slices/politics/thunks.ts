@@ -15,20 +15,24 @@ export const getPoliticsThunks = (): AppThunk => {
 
       const data = await response.json();
 
-      dispatch(setPolitics(data[0]));
+      if (Array.isArray(data) && data.length > 0) {
+        dispatch(setPolitics(data[0]));
+      } else {
+        console.log('No hay datos disponibles.');
+      }
     } catch (error) {
       console.error('Failed to fetch politics:', error);
     }
   };
 };
 
-export const postPoliticsThunks = (id:string, newIntroduction:string, newPoliticts:string[], targets:string[] ): AppThunk => { 
+export const postPoliticsThunks = (id: string | null = null, newIntroduction: string, newPoliticts: string[], targets: string[]): AppThunk => {
   return async (dispatch) => {
     try {
       console.log(id, newIntroduction, newPoliticts, targets)
 
-      if(!id) {
-        await fetch(`${API}/politics}`, {
+      if (!id) {
+        await fetch(`${API}/politics`, {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
@@ -36,7 +40,7 @@ export const postPoliticsThunks = (id:string, newIntroduction:string, newPolitic
           },
           body: JSON.stringify({
             introduction: newIntroduction,
-            politics:newPoliticts,
+            politics: newPoliticts,
             targets: targets
           })
         });
@@ -50,13 +54,13 @@ export const postPoliticsThunks = (id:string, newIntroduction:string, newPolitic
         },
         body: JSON.stringify({
           introduction: newIntroduction,
-          politics:newPoliticts,
+          politics: newPoliticts,
           targets: targets
         })
       });
 
       dispatch(updatePolitics({
-        newIntroduction, 
+        newIntroduction,
         newPoliticts,
         targets
       }));
