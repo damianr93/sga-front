@@ -1,10 +1,29 @@
 import { Button, Grid, ListItem, ListItemText, Paper, Typography } from "@mui/material"
-import { foda } from "../recursos/foda";
 import { Add, Edit } from "@mui/icons-material";
+import { useDispatch, useSelector } from "react-redux";
+import { AppDispatch } from "../store/store";
+import { useEffect } from "react";
+import { getContextAnalysisThunks } from "../store/slices/foda/thunks";
 
-const itemsFoda = foda
+
+interface Analysis {
+    id: string;
+    type: string;
+    description: string;
+  }
 
 export const ContextAnalysis = () => {
+
+    const analysis:Analysis[] = useSelector((state: any) => state.analysisContext.analysis)
+
+    const dispatch = useDispatch<AppDispatch>();
+
+    useEffect(() => {
+
+        dispatch(getContextAnalysisThunks());
+
+    }, [])
+
     return (
         <Grid container spacing={1}>
             <Grid item xs={6}>
@@ -22,7 +41,7 @@ export const ContextAnalysis = () => {
                         </Button>
                     </Typography>
                     {
-                        itemsFoda && itemsFoda.filter((elem) => elem.type === "Fortaleza").map((item, id) =>
+                        analysis && analysis.filter((elem) => elem.type === "Fortaleza").map((item, id) =>
                             <ListItem key={id}>
                                 <Button
                                     className="editButton"
@@ -34,7 +53,7 @@ export const ContextAnalysis = () => {
                                     <Edit />
                                 </Button>
                                 <Grid container>
-                                    <ListItemText primary={item.message} />
+                                    <ListItemText primary={item.description} />
                                 </Grid>
                             </ListItem>
                         )
@@ -59,7 +78,7 @@ export const ContextAnalysis = () => {
                     </Typography>
 
                     {
-                        itemsFoda && itemsFoda.filter((elem) => elem.type === "Debilidad").map((item, id) =>
+                        analysis && analysis.filter((elem) => elem.type === "Debilidad").map((item, id) =>
                             <ListItem key={id}>
                                 <Button
                                     className="editButton"
@@ -71,7 +90,7 @@ export const ContextAnalysis = () => {
                                     <Edit />
                                 </Button>
                                 <Grid container>
-                                    <ListItemText primary={item.message} />
+                                    <ListItemText primary={item.description} />
                                 </Grid>
                             </ListItem>
                         )
@@ -96,7 +115,7 @@ export const ContextAnalysis = () => {
                     </Typography>
 
                     {
-                        itemsFoda && itemsFoda.filter((elem) => elem.type === "Oportunidad").map((item, id) =>
+                        analysis && analysis.filter((elem) => elem.type === "Oportunidad").map((item, id) =>
                             <ListItem key={id}>
                                 <Button
                                     className="editButton"
@@ -108,7 +127,7 @@ export const ContextAnalysis = () => {
                                     <Edit />
                                 </Button>
                                 <Grid container>
-                                    <ListItemText primary={item.message} />
+                                    <ListItemText primary={item.description} />
                                 </Grid>
                             </ListItem>
                         )
@@ -136,7 +155,7 @@ export const ContextAnalysis = () => {
                     </Typography>
 
                     {
-                        itemsFoda && itemsFoda.filter((elem) => elem.type === "Amenaza").map((item, id) =>
+                        analysis && analysis.filter((elem) => elem.type === "Amenaza").map((item, id) =>
                             <ListItem key={id}>
                                 <Button
                                     className="editButton"
@@ -148,7 +167,7 @@ export const ContextAnalysis = () => {
                                     <Edit />
                                 </Button>
                                 <Grid container>
-                                    <ListItemText primary={item.message} />
+                                    <ListItemText primary={item.description} />
                                 </Grid>
                             </ListItem>
                         )
