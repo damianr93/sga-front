@@ -1,6 +1,6 @@
 import { API } from "../../../api/API";
 import { AppThunk } from "../../store";
-import { setAnalisisContext, updateAnalisisContext } from "./politics-slice";
+import { setAnalisisContext, updateAnalisisContext } from "./context-analysis-slice";
 
 export const getContextAnalysisThunks = (): AppThunk => {
   return async (dispatch) => {
