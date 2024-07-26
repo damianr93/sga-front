@@ -2,6 +2,7 @@ import { Box } from "@mui/material"
 import { PoliticsForm } from "../components/politics-form"
 import { TargetsForm } from "../components/targets-form"
 import { useSelector } from "react-redux";
+import { ContextAnalysisForm } from "../components/context-analysis-form";
 
 interface EditState {
     from: string
@@ -23,6 +24,8 @@ export const FormScreen = () => {
                 return <TargetsForm />
             case "politics":
                 return <PoliticsForm />
+            case "foda-add":
+                return <ContextAnalysisForm />
             default:
                 break;
         }

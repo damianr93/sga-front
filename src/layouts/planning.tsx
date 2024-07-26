@@ -3,6 +3,8 @@ import { Grid, List, ListItem, ListItemButton, ListItemIcon, ListItemText } from
 import { InterestedParties } from "../views/interested-parties"
 import { ContextAnalysis } from "../views/context-analysis"
 import { useState } from "react"
+import { useSelector } from "react-redux"
+import { FormScreen } from "./form-screen"
 
 const iso = [
   { primary: '4.1 Analisis del contexto', secondary: 'Descripción del análisis del contexto' },
@@ -14,9 +16,18 @@ const iso = [
   { primary: '6.1.4 Planificación de acciones', secondary: 'Descripción de la planificación de acciones' }
 ];
 
+interface EditState {
+  state: boolean
+}
+
+interface RootState {
+  editForms: EditState;
+}
+
 export const PlanningLayout = () => {
   const [viewSelected, setViewSelected] = useState<React.ReactElement | null>()
 
+  const state = useSelector((state: RootState) => state.editForms.state)
 
   const renderContent = (option: string) => {
 
@@ -47,6 +58,8 @@ export const PlanningLayout = () => {
           backgroundColor: "white",
           minHeight: `calc(100vh - 65px)`
         }}>
+
+        {state && <FormScreen />}
 
         <List>
           {iso.map(({ primary, secondary }) => (
