@@ -1,19 +1,27 @@
 import { Close } from "@mui/icons-material";
 import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
-import { useDispatch} from "react-redux";
+import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/store";
 import { setEditForms } from "../store/slices/edit-forms/edit-slice";
+import { useForm } from "../hooks/useForm";
+import { postContextAnalysisThunks } from "../store/slices/context-analysis/thunks";
+import { updateAnalisisContext } from "../store/slices/context-analysis/context-analysis-slice";
 
 export const ContextAnalysisForm = () => {
   const dispatch = useDispatch<AppDispatch>();
 
+  const { onInputChange, formState } = useForm({
+    type: "",
+    description: ""
+  });
+
+  const { type, description } = formState;
 
   const onSubmit = () => {
-    // dispatch()
-  }
+    dispatch(postContextAnalysisThunks(type, description));
+  };
 
   return (
-
     <Box
       sx={{
         backgroundColor: "white",
@@ -39,26 +47,28 @@ export const ContextAnalysisForm = () => {
           </Button>
         </h3>
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Age</InputLabel>
+          <InputLabel id="demo-simple-select-label">Tipo</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
-            // value={age}
-            label="Age"
-            // onChange={handleChange}
+            name="type"
+            value={type}
+            label="Tipo"
+            onChange={onInputChange}
           >
-            <MenuItem value={10}>Fortaleza</MenuItem>
-            <MenuItem value={20}>Debilidad</MenuItem>
-            <MenuItem value={30}>Oportunidad</MenuItem>
-            <MenuItem value={30}>Amenaza</MenuItem>
+            <MenuItem value="Fortaleza">Fortaleza</MenuItem>
+            <MenuItem value="Debilidad">Debilidad</MenuItem>
+            <MenuItem value="Oportunidad">Oportunidad</MenuItem>
+            <MenuItem value="Amenaza">Amenaza</MenuItem>
           </Select>
         </FormControl>
         <TextField
           id="outlined-textarea"
-          label="Descripcion"
+          label="Descripción"
           variant="outlined"
-          // value={introductionValue}
-          // onChange={handleIntroductionChange}
+          name="description"
+          value={description}
+          onChange={onInputChange}
           multiline
           sx={{
             marginTop: "5px",

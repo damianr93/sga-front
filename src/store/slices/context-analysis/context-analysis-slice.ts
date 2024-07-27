@@ -25,6 +25,8 @@ export const contextAnalysisSlice = createSlice({
       const index = state.analysis.findIndex(item => item.id === action.payload.id);
       if (index !== -1) {
         state.analysis[index] = action.payload;
+      } else {
+        state.analysis.push(action.payload);
       }
     },
   },

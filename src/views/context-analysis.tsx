@@ -3,8 +3,8 @@ import { Add, Edit } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../store/store";
 import { useEffect } from "react";
-import { getContextAnalysisThunks } from "../store/slices/foda/thunks";
 import { setEditForms } from "../store/slices/edit-forms/edit-slice";
+import { getContextAnalysisThunks } from "../store/slices/context-analysis/thunks";
 
 interface Analysis {
     id: string;
@@ -19,7 +19,7 @@ export const ContextAnalysis = () => {
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        dispatch(getContextAnalysisThunks());
+        dispatch(getContextAnalysisThunks())
     }, [dispatch])
 
     return (
