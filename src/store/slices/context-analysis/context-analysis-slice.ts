@@ -29,9 +29,12 @@ export const contextAnalysisSlice = createSlice({
         state.analysis.push(action.payload);
       }
     },
+    deleteAnalisisContext: (state, action: PayloadAction<string>) => {
+      state.analysis = state.analysis.filter(item => item.id !== action.payload);
+    },
   },
 });
 
-export const { setAnalisisContext, updateAnalisisContext } = contextAnalysisSlice.actions;
+export const { setAnalisisContext, updateAnalisisContext, deleteAnalisisContext } = contextAnalysisSlice.actions;
 
 export default contextAnalysisSlice.reducer;

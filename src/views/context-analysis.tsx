@@ -1,10 +1,10 @@
-import { Button, Grid, ListItem, ListItemText, Paper, Typography, Fab } from "@mui/material"
-import { Add, Edit } from "@mui/icons-material";
+import { Button, Grid, ListItem, ListItemText, Paper, Typography, Fab } from "@mui/material";
+import { Add, Delete, Edit } from "@mui/icons-material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../store/store";
 import { useEffect } from "react";
 import { setEditForms } from "../store/slices/edit-forms/edit-slice";
-import { getContextAnalysisThunks } from "../store/slices/context-analysis/thunks";
+import { deleteContextAnalysisThunks, getContextAnalysisThunks } from "../store/slices/context-analysis/thunks";
 
 interface Analysis {
     id: string;
@@ -13,14 +13,13 @@ interface Analysis {
 }
 
 export const ContextAnalysis = () => {
-
-    const analysis: Analysis[] = useSelector((state: any) => state.analysisContext.analysis)
+    const analysis: Analysis[] = useSelector((state: any) => state.analysisContext.analysis);
 
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        dispatch(getContextAnalysisThunks())
-    }, [dispatch])
+        dispatch(getContextAnalysisThunks());
+    }, [dispatch]);
 
     return (
         <Grid container spacing={1}>
@@ -41,10 +40,10 @@ export const ContextAnalysis = () => {
                         Fortalezas
                     </Typography>
                     {
-                        analysis && analysis.filter((elem) => elem.type === "Fortaleza").map((item, id) =>
-                            <ListItem key={id}>
+                        analysis && analysis.filter((elem) => elem.type === "Fortaleza").map((item) =>
+                            <ListItem key={item.id}>
                                 <Button
-                                    onClick={() => dispatch(setEditForms({ from: 'foda-edit' }))}
+                                    onClick={() => dispatch(setEditForms({ from: 'foda-edit', id: item.id }))}
                                     sx={{
                                         opacity: 0.2,
                                         transition: "opacity 0.3s",
@@ -58,6 +57,18 @@ export const ContextAnalysis = () => {
                                 <Grid container>
                                     <ListItemText primary={item.description} />
                                 </Grid>
+                                <Button
+                                    onClick={() => (dispatch(deleteContextAnalysisThunks(item.id)))}
+                                    sx={{
+                                        opacity: 0.2,
+                                        transition: "opacity 0.3s",
+                                        "&:hover": {
+                                            opacity: 1,
+                                        },
+                                    }}
+                                >
+                                    <Delete />
+                                </Button>
                             </ListItem>
                         )
                     }
@@ -69,10 +80,10 @@ export const ContextAnalysis = () => {
                         Debilidades
                     </Typography>
                     {
-                        analysis && analysis.filter((elem) => elem.type === "Debilidad").map((item, id) =>
-                            <ListItem key={id}>
+                        analysis && analysis.filter((elem) => elem.type === "Debilidad").map((item) =>
+                            <ListItem key={item.id}>
                                 <Button
-                                    onClick={() => dispatch(setEditForms({ from: 'foda-edit' }))}
+                                    onClick={() => dispatch(setEditForms({ from: 'foda-edit', id: item.id }))}
                                     sx={{
                                         opacity: 0.2,
                                         transition: "opacity 0.3s",
@@ -86,6 +97,18 @@ export const ContextAnalysis = () => {
                                 <Grid container>
                                     <ListItemText primary={item.description} />
                                 </Grid>
+                                <Button
+                                    onClick={() => (dispatch(deleteContextAnalysisThunks(item.id)))}
+                                    sx={{
+                                        opacity: 0.2,
+                                        transition: "opacity 0.3s",
+                                        "&:hover": {
+                                            opacity: 1,
+                                        },
+                                    }}
+                                >
+                                    <Delete />
+                                </Button>
                             </ListItem>
                         )
                     }
@@ -97,10 +120,10 @@ export const ContextAnalysis = () => {
                         Oportunidades
                     </Typography>
                     {
-                        analysis && analysis.filter((elem) => elem.type === "Oportunidad").map((item, id) =>
-                            <ListItem key={id}>
+                        analysis && analysis.filter((elem) => elem.type === "Oportunidad").map((item) =>
+                            <ListItem key={item.id}>
                                 <Button
-                                    onClick={() => dispatch(setEditForms({ from: 'foda-edit' }))}
+                                    onClick={() => dispatch(setEditForms({ from: 'foda-edit', id: item.id }))}
                                     sx={{
                                         opacity: 0.2,
                                         transition: "opacity 0.3s",
@@ -110,10 +133,23 @@ export const ContextAnalysis = () => {
                                     }}
                                 >
                                     <Edit />
+
                                 </Button>
                                 <Grid container>
                                     <ListItemText primary={item.description} />
                                 </Grid>
+                                <Button
+                                    onClick={() => (dispatch(deleteContextAnalysisThunks(item.id)))}
+                                    sx={{
+                                        opacity: 0.2,
+                                        transition: "opacity 0.3s",
+                                        "&:hover": {
+                                            opacity: 1,
+                                        },
+                                    }}
+                                >
+                                    <Delete />
+                                </Button>
                             </ListItem>
                         )
                     }
@@ -125,10 +161,10 @@ export const ContextAnalysis = () => {
                         Amenazas
                     </Typography>
                     {
-                        analysis && analysis.filter((elem) => elem.type === "Amenaza").map((item, id) =>
-                            <ListItem key={id}>
+                        analysis && analysis.filter((elem) => elem.type === "Amenaza").map((item) =>
+                            <ListItem key={item.id}>
                                 <Button
-                                    onClick={() => dispatch(setEditForms({ from: 'foda-edit' }))}
+                                    onClick={() => dispatch(setEditForms({ from: 'foda-edit', id: item.id }))}
                                     sx={{
                                         opacity: 0.2,
                                         transition: "opacity 0.3s",
@@ -142,11 +178,23 @@ export const ContextAnalysis = () => {
                                 <Grid container>
                                     <ListItemText primary={item.description} />
                                 </Grid>
+                                <Button
+                                    onClick={() => (dispatch(deleteContextAnalysisThunks(item.id)))}
+                                    sx={{
+                                        opacity: 0.2,
+                                        transition: "opacity 0.3s",
+                                        "&:hover": {
+                                            opacity: 1,
+                                        },
+                                    }}
+                                >
+                                    <Delete />
+                                </Button>
                             </ListItem>
                         )
                     }
                 </Paper>
             </Grid>
         </Grid>
-    )
-}
+    );
+};

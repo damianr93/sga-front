@@ -6,7 +6,7 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
-import { Add, Edit } from '@mui/icons-material';
+import { Add, Delete, Edit } from '@mui/icons-material';
 
 const createData = (
   name: string,
@@ -41,7 +41,10 @@ export default function PartiesBasicTable({ rows }: { rows: Row[] }) {
                 className="editButton"
                 sx={{
                   opacity: 0.2,
-                  transition: 'opacity 0.3s',
+                  transition: "opacity 0.3s",
+                  "&:hover": {
+                    opacity: 1,
+                  }
                 }}
               >
                 <Add />
@@ -64,11 +67,24 @@ export default function PartiesBasicTable({ rows }: { rows: Row[] }) {
                   className="editButton"
                   sx={{
                     opacity: 0.2,
-                    transition: 'opacity 0.3s',
+                    transition: "opacity 0.3s",
+                    "&:hover": {
+                      opacity: 1,
+                    },
                   }}
                 >
                   <Edit />
                 </Button>
+                <Button
+                  sx={{
+                    opacity: 0.2,
+                    transition: "opacity 0.3s",
+                    "&:hover": {
+                      opacity: 1,
+                    },
+                  }}
+                >
+                  <Delete /></Button>
               </TableCell>
             </TableRow>
           ))}

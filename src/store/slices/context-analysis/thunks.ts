@@ -1,6 +1,6 @@
 import { API } from "../../../api/API";
 import { AppThunk } from "../../store";
-import { setAnalisisContext, updateAnalisisContext } from "./context-analysis-slice";
+import { deleteAnalisisContext, setAnalisisContext, updateAnalisisContext } from "./context-analysis-slice";
 
 
 export const getContextAnalysisThunks = (): AppThunk => {
@@ -27,26 +27,47 @@ export const getContextAnalysisThunks = (): AppThunk => {
   };
 };
 
-export const postContextAnalysisThunks = (type:string, description:string): AppThunk  => {
+export const getContextAnalysisByIdThunks = (id: string): AppThunk => {
+  return async () => {
+    try {
+      const response = await fetch(`${API}/context-analysis/${id}`, {
+        method: "GET",
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'
+        },
+      });
+
+      const data = await response.json();
+
+      return data;
+    } catch (error) {
+      console.error('Failed to fetch context analysis:', error);
+      throw error;
+    }
+  };
+};
+
+export const postContextAnalysisThunks = (type: string, description: string): AppThunk => {
   return async (dispatch) => {
     try {
 
       const response = await fetch(`${API}/context-analysis`, {
-          method: "POST",
-          headers: {
-            'Content-Type': 'application/json',
-            'ngrok-skip-browser-warning': 'true'
-          },
-          body: JSON.stringify({
-            type,
-            description
-          })
-        });
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'
+        },
+        body: JSON.stringify({
+          type,
+          description
+        })
+      });
 
-        const newAnalysis = await response.json();
+      const newAnalysis = await response.json();
 
-        dispatch(updateAnalisisContext(newAnalysis));
-      
+      dispatch(updateAnalisisContext(newAnalysis));
+
 
     } catch (error) {
       console.error('Failed to post context analysis:', error);
@@ -54,4 +75,49 @@ export const postContextAnalysisThunks = (type:string, description:string): AppT
   };
 };
 
+export const patchContextAnalysisThunks = (id: string, type: string, description: string): AppThunk => {
+  return async (dispatch) => {
+    try {
+
+      await fetch(`${API}/context-analysis/${id}`, {
+        method: "PATCH",
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'
+        },
+        body: JSON.stringify({
+          type,
+          description
+        })
+      });
+
+      dispatch(updateAnalisisContext({ id, type, description }));
+
+
+    } catch (error) {
+      console.error('Failed to post context analysis:', error);
+    }
+  };
+};
+
+export const deleteContextAnalysisThunks = (id: string): AppThunk => {
+  return async (dispatch) => {
+    try {
+
+      await fetch(`${API}/context-analysis/${id}`, {
+        method: "DELETE",
+        headers: {
+          'Content-Type': 'application/json',
+          'ngrok-skip-browser-warning': 'true'
+        },
+      });
+
+      dispatch(deleteAnalisisContext(id));
+
+
+    } catch (error) {
+      console.error('Failed to post context analysis:', error);
+    }
+  };
+};
 

@@ -5,7 +5,6 @@ import { AppDispatch } from "../store/store";
 import { setEditForms } from "../store/slices/edit-forms/edit-slice";
 import { useForm } from "../hooks/useForm";
 import { postContextAnalysisThunks } from "../store/slices/context-analysis/thunks";
-import { updateAnalisisContext } from "../store/slices/context-analysis/context-analysis-slice";
 
 export const ContextAnalysisForm = () => {
   const dispatch = useDispatch<AppDispatch>();

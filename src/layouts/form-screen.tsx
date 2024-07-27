@@ -3,6 +3,7 @@ import { PoliticsForm } from "../components/politics-form"
 import { TargetsForm } from "../components/targets-form"
 import { useSelector } from "react-redux";
 import { ContextAnalysisForm } from "../components/context-analysis-form";
+import { ContextAnalysisItemsForm } from "../components/context-analysis-items-form";
 
 interface EditState {
     from: string
@@ -26,6 +27,8 @@ export const FormScreen = () => {
                 return <PoliticsForm />
             case "foda-add":
                 return <ContextAnalysisForm />
+            case "foda-edit":
+                return <ContextAnalysisItemsForm />
             default:
                 break;
         }
@@ -37,7 +40,7 @@ export const FormScreen = () => {
                 width: "100%",
                 height: "100vh",
                 backgroundColor: "rgba(0, 0, 0, 0.774)",
-                position: "absolute",
+                position: "fixed",
                 display: "flex",
                 justifyContent: "center",
                 alignItems: "center",

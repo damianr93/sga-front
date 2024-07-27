@@ -6,14 +6,16 @@ export const editFormsSlice = createSlice({
     name: 'edit forms',
     initialState: {
         state: false,
-        from: ""
+        from: "",
+        id:""
     },
     reducers: {
         setEditForms: (state, actions) => {
 
             return {
                 state: !state.state,
-                from: actions.payload.from
+                from: actions.payload.from,
+                id:actions.payload.id
             }
 
         },
