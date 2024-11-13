@@ -58,7 +58,7 @@ export const ContextAnalysis = () => {
                                     <ListItemText primary={item.description} />
                                 </Grid>
                                 <Button
-                                    onClick={() => (dispatch(deleteContextAnalysisThunks(item.id)))}
+                                    onClick={() => dispatch(deleteContextAnalysisThunks(item.id))}
                                     sx={{
                                         opacity: 0.2,
                                         transition: "opacity 0.3s",

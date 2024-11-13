@@ -2,7 +2,6 @@ import { Add, Close, Delete } from "@mui/icons-material";
 import { Box, Button, TextField } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../store/store";
-
 import { setEditForms } from "../store/slices/edit-forms/edit-slice";
 import { useState } from "react";
 import {  postPoliticsThunks } from "../store/slices/politics/thunks";
