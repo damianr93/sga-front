@@ -1,30 +1,32 @@
-# React + TypeScript + Vite
+# Eco Toyota - Frontend
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Este repositorio contiene el frontend de **Eco Toyota**, una aplicación diseñada para centralizar y gestionar los procesos relacionados con el sistema de gestión ambiental basado en la norma **ISO14001**. El objetivo principal es ofrecer una solución intuitiva y accesible que permita a los usuarios gestionar todos los aspectos del sistema de manera eficiente.
 
-Currently, two official plugins are available:
+> **Nota:** Esta aplicación está en desarrollo, por lo que algunas funcionalidades pueden no estar completamente implementadas. Backend: https://github.com/damianr93/ecoToyota
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Características (en desarrollo)
 
-## Expanding the ESLint configuration
+- Gestión centralizada de los procesos relacionados con **ISO14001**.
+- Interfaz amigable para facilitar la administración de documentos, registros y métricas ambientales.
+- Integración con el backend: [ecoToyota](https://github.com/damianr93/ecoToyota).
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 🛠 Tecnologías utilizadas
 
-- Configure the top-level `parserOptions` property like this:
+- **React.js**: Biblioteca para construir interfaces de usuario dinámicas.
+- **Material-UI (MUI)**: Framework para crear componentes estilizados y responsivos.
+- **Redux**: Manejo del estado global de la aplicación.
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+1. Clona este repositorio:
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+   ```bash
+   git clone https://github.com/damianr93/eco-toyota-front.git
+   cd eco-toyota-front
+
+2. Instala las dependencias:
+
+   ```bash
+   npm install
+   
+3. inicia la aplicacion:
+   ```bash
+   npm run dev
