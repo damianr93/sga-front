@@ -1,7 +1,7 @@
-import { Navigate, Route, Routes } from "react-router-dom"
-import { Dashboard } from "../pages/dashboard"
-import { LoadData } from "../pages/load-data"
-import { HomeScreen } from "../pages/home"
+import { Route, Routes } from "react-router-dom"
+import { Login } from "../login/pages/login"
+import { UserRoutes } from "./userRoutes"
+
 
 export const AppRouter = () => {
 
@@ -9,11 +9,9 @@ export const AppRouter = () => {
     <>
     <Routes>
 
-        <Route path="/" element={<HomeScreen/>} />
-        <Route path="dashboard" element={<Dashboard/>} />
-        <Route path="load-data" element={<LoadData/>} />
+        <Route path="/login" element={<Login/>} />
+        <Route path="/*" element={<UserRoutes/>} />
 
-        <Route path="/*" element={<Navigate to="/"/>} />
     </Routes>
 
     </>

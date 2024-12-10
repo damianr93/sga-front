@@ -5,6 +5,7 @@ import { useSelector } from "react-redux";
 import { ContextAnalysisForm } from "../components/context-analysis-form";
 import { ContextAnalysisItemsForm } from "../components/context-analysis-items-form";
 import { InterestedPartiesForm } from "../components/interested-parties-form";
+import { ProcessDefinitionsForm } from "../components/process-definitions-form";
 
 interface EditState {
   from: string;
@@ -28,7 +29,9 @@ export const FormScreen = () => {
       case "foda-edit":
         return <ContextAnalysisItemsForm />;
       case "interested-parties":
-        return <InterestedPartiesForm/>;
+        return <InterestedPartiesForm />;
+      case "process-definitions":
+        return <ProcessDefinitionsForm />;
       default:
         break;
     }

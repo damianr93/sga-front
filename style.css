@@ -16,6 +16,7 @@
   gap: 0px 0px; 
   margin-top: 65px;
   min-height: calc(100vh - 65px);
+  width: 100%;
   grid-template-areas: 
     "dashboard-nav dashboard-main dashboard-main"
     "dashboard-nav dashboard-main dashboard-main"
@@ -37,16 +38,6 @@
   justify-content: space-between;
   align-items: center;
   flex-direction: column ;
-  background-color: rgba(255, 255, 255, 0.918);
-}
-
-.img-logo-container {
-  width: 100%;
-  text-align: center;
-  margin-bottom: 50px;
-}
-.img-logo-container img{
-  width: 80%;
 }
 
 .table-container {

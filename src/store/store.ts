@@ -3,6 +3,7 @@ import { politicSlice } from './slices/politics/politics-slice'
 import { editFormsSlice } from './slices/edit-forms/edit-slice'
 import { contextAnalysisSlice } from './slices/context-analysis/context-analysis-slice'
 import { interestedPartiesSlice } from './slices/interested-parties/interested-parties-slice'
+import { processDefinitionsSlice } from './slices/process-definition/process-definitions'
 
 
 
@@ -11,7 +12,8 @@ export const store = configureStore({
     politics: politicSlice.reducer,
     editForms: editFormsSlice.reducer,
     analysisContext:contextAnalysisSlice.reducer,
-    interestedParties:interestedPartiesSlice.reducer
+    interestedParties:interestedPartiesSlice.reducer,
+    processDefinitions:processDefinitionsSlice.reducer
   },
 })
 

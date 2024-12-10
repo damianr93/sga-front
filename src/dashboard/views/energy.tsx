@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react"
-import BasicTable from "../table"
 import getEnergy from "../../api/energy/energy"
-import SimpleLineChart from "../catesian-table-basic"
-
+import BasicTable from "../components/table"
+import SimpleLineChart from "../components/catesian-table-basic"
 
 export const Energy = () => {
     const [energy, setEnergy] = useState([])

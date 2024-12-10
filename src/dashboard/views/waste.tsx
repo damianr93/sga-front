@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import { getWastes } from "../../api/waste/wastes";
-import CartesianTable from "../cartesian-table";
-import PorcentageCyrcle from "../porcentage-cyrcle";
-import CollapsibleTable from "../collapsed-table";
+import CollapsibleTable from "../components/collapsed-table";
+import CartesianTable from "../components/cartesian-table";
+import PorcentageCyrcle from "../components/porcentage-cyrcle";
 
 interface Measurement {
     createdAt: string;
