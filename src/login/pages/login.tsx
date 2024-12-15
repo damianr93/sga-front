@@ -7,7 +7,7 @@ import {
   Box,
 } from "@mui/material";
 
-export const Login = () => {
+export const LoginPage = () => {
   return (
     <Container
       maxWidth={false}
