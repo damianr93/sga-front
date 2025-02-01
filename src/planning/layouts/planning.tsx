@@ -78,7 +78,14 @@ export const PlanningLayout = () => {
   };
 
   return (
-    <Grid container columns={5} sx={{ marginTop: `65px` }}>
+    <Grid 
+    container 
+    columns={5} 
+    sx={{ 
+      marginTop: `65px` 
+      }}
+      className="animate__backInRight  animate__animated"
+      >
       <Grid
         item
         xs={1}

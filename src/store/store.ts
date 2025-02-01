@@ -4,6 +4,7 @@ import { editFormsSlice } from './slices/edit-forms/edit-slice'
 import { contextAnalysisSlice } from './slices/context-analysis/context-analysis-slice'
 import { interestedPartiesSlice } from './slices/interested-parties/interested-parties-slice'
 import { processDefinitionsSlice } from './slices/process-definition/process-definitions'
+import { loginSlice } from './slices/login/login-slice'
 
 
 
@@ -13,7 +14,8 @@ export const store = configureStore({
     editForms: editFormsSlice.reducer,
     analysisContext:contextAnalysisSlice.reducer,
     interestedParties:interestedPartiesSlice.reducer,
-    processDefinitions:processDefinitionsSlice.reducer
+    processDefinitions:processDefinitionsSlice.reducer,
+    userLogger: loginSlice.reducer
   },
 })
 

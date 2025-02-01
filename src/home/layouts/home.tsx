@@ -4,6 +4,7 @@ import { Toolbar } from "@mui/material";
 import { Objective } from "../views/objective";
 import { FormScreen } from "../../layouts/form-screen";
 import { useSelector } from "react-redux";
+import { FormModal } from "../../components/modal";
 
 
 
@@ -31,11 +32,13 @@ export const HomeLayout = () => {
           flexDirection: "column",
           p: 5,
         }}
+        className="animate__fadeIn  animate__animated"
       >
 
         <Toolbar />
         <Politics />
         <Objective />
+        <FormModal/>
       </Box>
     </>
 

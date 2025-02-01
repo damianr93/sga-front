@@ -1,42 +1,41 @@
-import { Add, Close, Delete } from "@mui/icons-material";
-import { Box, Button, TextField } from "@mui/material";
+import { Add, Delete } from "@mui/icons-material";
+import { Box, Button, TextField, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../store/store";
-import { setEditForms } from "../store/slices/edit-forms/edit-slice";
 import { useState } from "react";
-import {  postPoliticsThunks } from "../store/slices/politics/thunks";
-
+import { postPoliticsThunks } from "../store/slices/politics/thunks";
 
 export const TargetsForm = () => {
-
-  const { id, introduction, politics, targets } = useSelector((state: any) => state.politics)
+  const { id, introduction, politics, targets } = useSelector(
+    (state: any) => state.politics
+  );
 
   const dispatch = useDispatch<AppDispatch>();
 
-  const [tgts, setTgts] = useState(targets)
+  const [tgts, setTgts] = useState(targets);
 
-  const handleTargetsChange = (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleTargetsChange =
+    (index: number) => (event: React.ChangeEvent<HTMLInputElement>) => {
+      const newTargetsValues = [...tgts];
+      newTargetsValues[index] = event.target.value;
+      setTgts(newTargetsValues);
+    };
+
+  const addTarget = () => {
     const newTargetsValues = [...tgts];
-    newTargetsValues[index] = event.target.value;
+    newTargetsValues.push(`nueva politica ${newTargetsValues.length + 1}`);
     setTgts(newTargetsValues);
   };
 
-  const addTarget = () => {
-    const newTargetsValues = [...tgts]
-    newTargetsValues.push(`nueva politica ${newTargetsValues.length + 1}`)
-    setTgts(newTargetsValues)
-  }
-
   const deleteTarget = (index: number) => {
-    const newTargetsValues = [...tgts]
-    newTargetsValues.splice(index, 1)
-    setTgts(newTargetsValues)
-  }
+    const newTargetsValues = [...tgts];
+    newTargetsValues.splice(index, 1);
+    setTgts(newTargetsValues);
+  };
 
   const onSubmit = () => {
-    dispatch(postPoliticsThunks(id, introduction, politics, tgts))
-  }
-
+    dispatch(postPoliticsThunks(id, introduction, politics, tgts));
+  };
 
   return (
     <Box
@@ -46,27 +45,17 @@ export const TargetsForm = () => {
         borderRadius: "5px",
         width: "900px",
         maxHeight: "75vh",
-        overflowY: "scroll"
+        overflowY: "scroll",
       }}
     >
       <form>
-        <h3>
-          Puede editar sus objetivos
-          <Button
-            onClick={() => dispatch(setEditForms({ from: "" }))}
-            className="editButton"
-            sx={{
-              opacity: 0.2,
-              transition: "opacity 0.3s",
-            }}
-          >
-            <Close />
-          </Button>
-        </h3>
+        <Typography variant="h3" align="center" width="100%">
+          Puede editar su información
+        </Typography>
         <Box
           sx={{
             display: "flex",
-            flexDirection: "column"
+            flexDirection: "column",
           }}
         >
           {tgts.map((text: string, index: number) => (
@@ -75,7 +64,7 @@ export const TargetsForm = () => {
               sx={{
                 display: "flex",
                 justifyContent: "center",
-                alignItems: "center"
+                alignItems: "center",
               }}
             >
               <TextField
@@ -103,7 +92,7 @@ export const TargetsForm = () => {
           variant="contained"
           onClick={onSubmit}
           sx={{
-            margin: "10px"
+            margin: "10px",
           }}
         >
           Submit

@@ -1,7 +1,8 @@
 import { Navigate } from "react-router-dom";
 
 export const PublicRouters = ({ children }:any) => {
-  const auth = false;
+  const item = localStorage.getItem("authToken");
+  const user = item ? true : false;
 
-  return !auth ? children : <Navigate to='/home'/>;
+  return !user ? children : <Navigate to='/home'/>;
 };

@@ -6,8 +6,48 @@ import {
   Typography,
   Box,
 } from "@mui/material";
+import { useForm } from "../../hooks/useForm";
+import { toast } from "react-toastify";
+import { removeToken, saveToken } from "../../utils/storage";
+import { useNavigate } from "react-router-dom";
 
 export const LoginPage = () => {
+  const { onInputChange, formState } = useForm({
+    username: "",
+    password: "",
+  });
+  const navegate = useNavigate();
+  const { username, password } = formState;
+
+  const handleLogin = async (username: string, password: string) => {
+
+    if (!username || !password) {
+      toast.error("Por favor completa todos los campos", {
+        position: "top-right",
+      });
+      removeToken();
+      return;
+    };
+
+    const user = await fetch("http://localhost:3000/auth/login", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ username, password }),
+    }).then((res) => res.json());
+
+    if(user.statusCode === 404){ 
+      toast.error('Usuario o contraseña incorrecta', {
+        position: "top-right",
+      });
+      removeToken();
+      return;
+    };
+    navegate("/home");
+    saveToken(user.access_token, user.username);
+  };
+
   return (
     <Container
       maxWidth={false}
@@ -20,6 +60,7 @@ export const LoginPage = () => {
         justifyContent: "center",
         alignItems: "center",
       }}
+      className="animate__fadeIn  animate__animated"
     >
       <FormControl
         sx={{
@@ -49,6 +90,8 @@ export const LoginPage = () => {
           id="username"
           label="Username"
           variant="outlined"
+          name="username"
+          onChange={onInputChange}
           fullWidth
           sx={{
             marginBottom: "20px",
@@ -59,6 +102,8 @@ export const LoginPage = () => {
           label="Password"
           type="password"
           variant="outlined"
+          name="password"
+          onChange={onInputChange}
           fullWidth
           sx={{
             marginBottom: "20px",
@@ -66,6 +111,7 @@ export const LoginPage = () => {
         />
         <Button
           variant="contained"
+          onClick={() => handleLogin(username, password)}
           sx={{
             backgroundColor: "#1976d2",
             color: "#ffffff",
@@ -80,7 +126,7 @@ export const LoginPage = () => {
         >
           Sign In
         </Button>
-        <Typography
+        {/* <Typography
           variant="body2"
           sx={{
             marginTop: "15px",
@@ -92,7 +138,7 @@ export const LoginPage = () => {
           <a href="#" style={{ color: "#1976d2" }}>
             Sign up
           </a>
-        </Typography>
+        </Typography> */}
       </FormControl>
       <Box
         sx={{

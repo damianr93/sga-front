@@ -1,4 +1,3 @@
-import { Close } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -9,10 +8,10 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch } from "../store/store";
-import { setEditForms } from "../store/slices/edit-forms/edit-slice";
 import { useForm } from "../hooks/useForm";
 import {
   patchInterestedPartiesThunks,
@@ -94,19 +93,9 @@ export const InterestedPartiesForm = () => {
       }}
     >
       <form>
-        <h3>
-          Puede editar su informacion
-          <Button
-            onClick={() => dispatch(setEditForms({ from: "" }))}
-            className="editButton"
-            sx={{
-              opacity: 0.2,
-              transition: "opacity 0.3s",
-            }}
-          >
-            <Close />
-          </Button>
-        </h3>
+        <Typography variant="h3" align="center" width="100%">
+          Puede editar su información
+        </Typography>
         <TextField
           id="outlined-textarea"
           label="Identificacion de la parte interesada"

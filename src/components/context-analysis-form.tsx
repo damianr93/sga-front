@@ -1,8 +1,15 @@
-import { Close } from "@mui/icons-material";
-import { Box, Button, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material";
+import {
+  Box,
+  Button,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Select,
+  TextField,
+  Typography,
+} from "@mui/material";
 import { useDispatch } from "react-redux";
 import { AppDispatch } from "../store/store";
-import { setEditForms } from "../store/slices/edit-forms/edit-slice";
 import { useForm } from "../hooks/useForm";
 import { postContextAnalysisThunks } from "../store/slices/context-analysis/thunks";
 
@@ -11,7 +18,7 @@ export const ContextAnalysisForm = () => {
 
   const { onInputChange, formState } = useForm({
     type: "",
-    description: ""
+    description: "",
   });
 
   const { type, description } = formState;
@@ -28,23 +35,13 @@ export const ContextAnalysisForm = () => {
         borderRadius: "5px",
         width: "900px",
         maxHeight: "75vh",
-        overflowY: "scroll"
+        overflowY: "scroll",
       }}
     >
       <form>
-        <h3>
-          Puede editar su informacion
-          <Button
-            onClick={() => dispatch(setEditForms({ from: "" }))}
-            className="editButton"
-            sx={{
-              opacity: 0.2,
-              transition: "opacity 0.3s",
-            }}
-          >
-            <Close />
-          </Button>
-        </h3>
+        <Typography variant="h3" align="center" width="100%">
+          Puede editar su información
+        </Typography>
         <FormControl fullWidth>
           <InputLabel id="demo-simple-select-label">Tipo</InputLabel>
           <Select
@@ -78,7 +75,7 @@ export const ContextAnalysisForm = () => {
           variant="contained"
           onClick={onSubmit}
           sx={{
-            margin: "10px"
+            margin: "10px",
           }}
         >
           Submit

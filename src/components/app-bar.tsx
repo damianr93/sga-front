@@ -11,6 +11,12 @@ import { useNavigate } from "react-router-dom";
 
 export const NavBar = () => {
   const navegate = useNavigate();
+  const {username} = JSON.parse(localStorage.getItem('authToken') || '{}');
+
+  const handleLogout = () => {
+    localStorage.removeItem('authToken');
+    navegate('/login');
+  }
 
   return (
     <AppBar
@@ -41,8 +47,7 @@ export const NavBar = () => {
           </Typography>
 
           <Grid item>
-            <h1>Logo</h1>
-            {/* <img src="../public/img/Nuevo-BOS2.png" alt="Logo" width={150} /> */}
+            <h1>Hola, {username}</h1>
           </Grid>
 
           <Grid item>
@@ -52,8 +57,11 @@ export const NavBar = () => {
             <Button color="inherit">IT</Button>
             <Button color="inherit" onClick={() => {navegate('/dashboard')}}>DASHBOARD</Button>
 
-            <IconButton>
-              <LogoutOutlined />
+            <IconButton
+            onClick={handleLogout}
+            >
+              <LogoutOutlined 
+              />
             </IconButton>
           </Grid>
         </Grid>

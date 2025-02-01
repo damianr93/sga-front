@@ -1,4 +1,3 @@
-import { Close } from "@mui/icons-material";
 import {
   Box,
   Button,
@@ -7,12 +6,15 @@ import {
   MenuItem,
   Select,
   TextField,
+  Typography,
 } from "@mui/material";
-import { setEditForms } from "../store/slices/edit-forms/edit-slice";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../store/store";
 import { useForm } from "../hooks/useForm";
-import { patchProcessDefinitionsThunks, postProcessDefinitionsThunks } from "../store/slices/process-definition/thunks";
+import {
+  patchProcessDefinitionsThunks,
+  postProcessDefinitionsThunks,
+} from "../store/slices/process-definition/thunks";
 
 interface ProcessDefinitions {
   id: string;
@@ -65,23 +67,10 @@ export const ProcessDefinitionsForm = () => {
   const onSubmit = () => {
     if (id) {
       dispatch(
-        patchProcessDefinitionsThunks(
-          id,
-          area,
-          name,
-          type,
-          description,
-        )
+        patchProcessDefinitionsThunks(id, area, name, type, description)
       );
     } else {
-      dispatch(
-        postProcessDefinitionsThunks(
-          area,
-          name,
-          type,
-          description,
-        )
-      );
+      dispatch(postProcessDefinitionsThunks(area, name, type, description));
     }
   };
 
@@ -97,19 +86,9 @@ export const ProcessDefinitionsForm = () => {
       }}
     >
       <form>
-        <h3>
-          Puede editar su informacion
-          <Button
-            onClick={() => dispatch(setEditForms({ from: "" }))}
-            className="editButton"
-            sx={{
-              opacity: 0.2,
-              transition: "opacity 0.3s",
-            }}
-          >
-            <Close />
-          </Button>
-        </h3>
+        <Typography variant="h3" align="center" width="100%">
+          Puede editar su información
+        </Typography>
 
         <TextField
           id="outlined-textarea"
@@ -154,9 +133,7 @@ export const ProcessDefinitionsForm = () => {
         />
 
         <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">
-            Tipo de proceso
-          </InputLabel>
+          <InputLabel id="demo-simple-select-label">Tipo de proceso</InputLabel>
           <Select
             labelId="demo-simple-select-label"
             id="demo-simple-select"
@@ -170,7 +147,7 @@ export const ProcessDefinitionsForm = () => {
             <MenuItem value="Soporte">Soporte</MenuItem>
           </Select>
         </FormControl>
-        <Button 
+        <Button
           variant="contained"
           onClick={onSubmit}
           sx={{
