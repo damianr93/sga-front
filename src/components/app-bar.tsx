@@ -8,20 +8,26 @@ import {
 } from "@mui/material";
 import { LogoutOutlined, MenuOutlined } from "@mui/icons-material";
 import { useNavigate } from "react-router-dom";
+import { getUserLogged } from "../utils/storage";
 
 export const NavBar = () => {
   const navegate = useNavigate();
-  const {username} = JSON.parse(localStorage.getItem('authToken') || '{}');
+  const items = getUserLogged();
+  if (!items) {
+    return null;
+  }
+  const { username } = JSON.parse(items);
 
   const handleLogout = () => {
-    localStorage.removeItem('authToken');
-    navegate('/login');
-  }
+    localStorage.removeItem("authToken");
+    navegate("/login");
+  };
 
   return (
     <AppBar
       position="fixed"
       sx={{
+        minWidth: "1200px",
         width: { sm: "100%" },
         height: `65px`,
       }}
@@ -51,17 +57,35 @@ export const NavBar = () => {
           </Grid>
 
           <Grid item>
-            <Button color="inherit" onClick={() => {navegate('/home')}}>Home</Button>
-            <Button color="inherit" onClick={() => {navegate('/planning')}}>Planificación</Button>
+            <Button
+              color="inherit"
+              onClick={() => {
+                navegate("/home");
+              }}
+            >
+              Home
+            </Button>
+            <Button
+              color="inherit"
+              onClick={() => {
+                navegate("/planning");
+              }}
+            >
+              Planificación
+            </Button>
             <Button color="inherit">PG</Button>
             <Button color="inherit">IT</Button>
-            <Button color="inherit" onClick={() => {navegate('/dashboard')}}>DASHBOARD</Button>
-
-            <IconButton
-            onClick={handleLogout}
+            <Button
+              color="inherit"
+              onClick={() => {
+                navegate("/dashboard");
+              }}
             >
-              <LogoutOutlined 
-              />
+              DASHBOARD
+            </Button>
+
+            <IconButton onClick={handleLogout}>
+              <LogoutOutlined />
             </IconButton>
           </Grid>
         </Grid>

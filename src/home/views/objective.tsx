@@ -6,11 +6,17 @@ import { useEffect } from 'react';
 import { setEditForms } from '../../store/slices/edit-forms/edit-slice';
 import { getPoliticsThunks } from '../../store/slices/politics/thunks';
 import { AppDispatch } from '../../store/store';
+import { getUserLogged } from '../../utils/storage';
 
 
 export const Objective = () => {
 
     const  {targets}  = useSelector((state: any) => state.politics)
+    const item = getUserLogged();
+    if (!item) {
+        return null;
+    }
+    const { role } = JSON.parse(item);
 
     const dispatch = useDispatch<AppDispatch>();
 
@@ -50,16 +56,18 @@ export const Objective = () => {
                         }}
                     >
                         Objetivos
-                        <Button
-                            onClick={() => dispatch(setEditForms({ from: "targets" }))}
-                            className="editButton"
-                            sx={{
-                                opacity: 0.2,
-                                transition: 'opacity 0.3s',
-                            }}
-                        >
-                            <Edit />
-                        </Button>
+                        {
+                            role === 'admin' && <Button
+                                onClick={() => dispatch(setEditForms({ from: "targets" }))}
+                                className="editButton"
+                                sx={{
+                                    opacity: 0.2,
+                                    transition: 'opacity 0.3s',
+                                }}
+                            >
+                                <Edit />
+                            </Button>
+                        }
                     </Typography>
 
 

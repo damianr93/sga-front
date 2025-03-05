@@ -1,15 +1,16 @@
-export const saveToken = (token:string, username:string) => {
-    if(!token || !username) {
-        return
-    };
-    const user = {token, username};
-    localStorage.setItem("authToken", JSON.stringify(user));
-  };
+export const saveUserLogged = (token: string, username: string, role: string) => {
 
-export const getToken = () => {
-    return localStorage.getItem("authToken");
+  if (!token || !username || !role) {
+    return;
+  }
+  const user = { token, username, role };
+  localStorage.setItem("authToken", JSON.stringify(user));
 };
 
-export const removeToken = () => {
-    localStorage.removeItem("authToken");
+export const getUserLogged = () => {
+  return localStorage.getItem("authToken");
+};
+
+export const removeUserLogged = () => {
+  localStorage.removeItem("authToken");
 };

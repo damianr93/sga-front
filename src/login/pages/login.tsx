@@ -8,26 +8,29 @@ import {
 } from "@mui/material";
 import { useForm } from "../../hooks/useForm";
 import { toast } from "react-toastify";
-import { removeToken, saveToken } from "../../utils/storage";
+import { removeUserLogged, saveUserLogged } from "../../utils/storage";
 import { useNavigate } from "react-router-dom";
+import { isLoading } from "../../store/slices/loading/loading";
+import { useDispatch } from "react-redux";
 
 export const LoginPage = () => {
   const { onInputChange, formState } = useForm({
     username: "",
     password: "",
   });
+  const dispatch = useDispatch();
   const navegate = useNavigate();
   const { username, password } = formState;
 
   const handleLogin = async (username: string, password: string) => {
-
+    dispatch(isLoading());
     if (!username || !password) {
       toast.error("Por favor completa todos los campos", {
         position: "top-right",
       });
-      removeToken();
+      removeUserLogged();
       return;
-    };
+    }
 
     const user = await fetch("http://localhost:3000/auth/login", {
       method: "POST",
@@ -35,17 +38,18 @@ export const LoginPage = () => {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ username, password }),
-    }).then((res) => res.json());
+    }).then((response) => response.json());
 
-    if(user.statusCode === 404){ 
-      toast.error('Usuario o contraseña incorrecta', {
+    if (user === null) {
+      toast.error("Usuario o contraseña incorrecta", {
         position: "top-right",
       });
-      removeToken();
+      removeUserLogged();
       return;
-    };
+    }
+    saveUserLogged(user.access_token, user.username, user.role);
+    dispatch(isLoading());
     navegate("/home");
-    saveToken(user.access_token, user.username);
   };
 
   return (

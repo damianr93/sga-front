@@ -3,13 +3,12 @@ import { UserRoutes } from "./userRoutes";
 import { LoginPage } from "../login/pages/login";
 import { PrivateRouters } from "./PrivateRouters";
 import { PublicRouters } from "./PublicRouters";
-import { getToken } from "../utils/storage";
 
 export const AppRouter = () => {
-  const item = getToken();
 
 
   return (
+    <>
     <Routes>
       <Route
         path="/login/*"
@@ -29,5 +28,7 @@ export const AppRouter = () => {
         }
       />
     </Routes>
+    </>
+    
   );
 };

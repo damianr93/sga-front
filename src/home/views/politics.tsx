@@ -10,12 +10,12 @@ import {
 } from "@mui/material";
 import ArrowRightIcon from "@mui/icons-material/ArrowRight";
 import { Edit } from "@mui/icons-material";
-import { useEffect} from "react";
+import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { getPoliticsThunks } from "../../store/slices/politics/thunks";
 import { AppDispatch } from "../../store/store";
 import { setEditForms } from "../../store/slices/edit-forms/edit-slice";
-
+import { getUserLogged } from "../../utils/storage";
 
 interface PoliticsState {
   politics: string[];
@@ -28,17 +28,21 @@ interface RootState {
 }
 
 export const Politics = () => {
+  const { politics, introduction } = useSelector(
+    (state: RootState) => state.politics
+  );
 
-  const {politics, introduction} = useSelector((state:RootState) => state.politics)  
-  
+  const item  = getUserLogged();
+  if (!item) {
+    return null;
+  }
+  const {role} = JSON.parse(item);
+
   const dispatch = useDispatch<AppDispatch>();
-  
-  useEffect(() => {
 
+  useEffect(() => {
     dispatch(getPoliticsThunks());
-  
-  }, [])
-  
+  }, []);
 
   return (
     <>
@@ -69,37 +73,38 @@ export const Politics = () => {
             }}
           >
             Política de la empresa
-            <Button
-              onClick={() => dispatch(setEditForms({from:"politics"}))}
-              className="editButton"
-              sx={{
-                opacity: 0.2,
-                transition: "opacity 0.3s",
-              }}
-            >
-              <Edit />
-            </Button>
+            {role === "admin" && (
+              <Button
+                onClick={() => dispatch(setEditForms({ from: "targets" }))}
+                className="editButton"
+                sx={{
+                  opacity: 0.2,
+                  transition: "opacity 0.3s",
+                }}
+              >
+                <Edit />
+              </Button>
+            )}
           </Typography>
 
-          <Box mt={2} sx={{width:"100%"}}>
-          <Typography
+          <Box mt={2} sx={{ width: "100%" }}>
+            <Typography
               variant="body1"
-              sx={{ whiteSpace: "pre-wrap", fontWeight: "bold", width:"100%"}}
+              sx={{ whiteSpace: "pre-wrap", fontWeight: "bold", width: "100%" }}
             >
-            {
-              introduction && introduction
-            }
-            </Typography> 
+              {introduction && introduction}
+            </Typography>
           </Box>
           <List>
-            {politics && politics.map((text) => (
-              <ListItem key={text}>
-                <ListItemIcon>
-                  <ArrowRightIcon fontSize="small" />
-                </ListItemIcon>
-                <ListItemText primary={text} />
-              </ListItem>
-            ))}
+            {politics &&
+              politics.map((text) => (
+                <ListItem key={text}>
+                  <ListItemIcon>
+                    <ArrowRightIcon fontSize="small" />
+                  </ListItemIcon>
+                  <ListItemText primary={text} />
+                </ListItem>
+              ))}
           </List>
         </Grid>
       </Grid>

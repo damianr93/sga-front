@@ -4,9 +4,7 @@ import { editFormsSlice } from './slices/edit-forms/edit-slice'
 import { contextAnalysisSlice } from './slices/context-analysis/context-analysis-slice'
 import { interestedPartiesSlice } from './slices/interested-parties/interested-parties-slice'
 import { processDefinitionsSlice } from './slices/process-definition/process-definitions'
-import { loginSlice } from './slices/login/login-slice'
-
-
+import { loadingSlice } from './slices/loading/loading'
 
 export const store = configureStore({
   reducer: {
@@ -15,7 +13,7 @@ export const store = configureStore({
     analysisContext:contextAnalysisSlice.reducer,
     interestedParties:interestedPartiesSlice.reducer,
     processDefinitions:processDefinitionsSlice.reducer,
-    userLogger: loginSlice.reducer
+    isLoading:loadingSlice.reducer,
   },
 })
 
