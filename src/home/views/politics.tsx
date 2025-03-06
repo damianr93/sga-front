@@ -75,7 +75,7 @@ export const Politics = () => {
             Política de la empresa
             {role === "admin" && (
               <Button
-                onClick={() => dispatch(setEditForms({ from: "targets" }))}
+                onClick={() => dispatch(setEditForms({ from: "politics" }))}
                 className="editButton"
                 sx={{
                   opacity: 0.2,

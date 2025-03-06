@@ -28,6 +28,7 @@ export const LoginPage = () => {
       toast.error("Por favor completa todos los campos", {
         position: "top-right",
       });
+      dispatch(isLoading());
       removeUserLogged();
       return;
     }
@@ -40,13 +41,15 @@ export const LoginPage = () => {
       body: JSON.stringify({ username, password }),
     }).then((response) => response.json());
 
-    if (user === null) {
+    if (!user.username) {
       toast.error("Usuario o contraseña incorrecta", {
         position: "top-right",
       });
+      dispatch(isLoading());
       removeUserLogged();
       return;
     }
+    console.log(user); 
     saveUserLogged(user.access_token, user.username, user.role);
     dispatch(isLoading());
     navegate("/home");

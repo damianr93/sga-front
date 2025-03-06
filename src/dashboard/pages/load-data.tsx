@@ -78,6 +78,7 @@ export const LoadDataPage = () => {
                     <select
                         className="form-select"
                         onChange={onInputChange}
+                        name="tipo"
                         value={tipo}
                     >
                         <option>Seleccione una opción</option>
