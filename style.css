@@ -9,6 +9,10 @@
   -moz-osx-font-smoothing: grayscale;
 }
 
+body {
+  background-color: #81a3b86a;
+}
+
 .dashboard-container {
   display: grid; 
   grid-template-columns: 0.6fr 1fr 1.1fr; 
@@ -28,7 +32,6 @@
   justify-content: center ;
   align-items: center;
   border-right: .3px solid rgba(255, 255, 255, 0.253);
-  background-color: rgb(51, 46, 46);
 }
 
 

@@ -1,10 +1,10 @@
-import { FormModal } from "../components/modal";
+import BasicModal from "../components/modal-ui";
 
 export const FormScreen = () => {
 
   return (
-    <FormModal>
+    <BasicModal>
 
-    </FormModal>
+    </BasicModal>
   );
 };

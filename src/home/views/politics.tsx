@@ -32,11 +32,11 @@ export const Politics = () => {
     (state: RootState) => state.politics
   );
 
-  const item  = getUserLogged();
+  const item = getUserLogged();
   if (!item) {
     return null;
   }
-  const {role} = JSON.parse(item);
+  const { role } = JSON.parse(item);
 
   const dispatch = useDispatch<AppDispatch>();
 
@@ -56,18 +56,23 @@ export const Politics = () => {
           borderRadius: "10px",
           width: "75%",
           margin: "5px",
+          padding: "16px",
+          boxShadow: 3, // Añadir sombra para profundidad
         }}
       >
         <Grid item xs={12} sm={8} md={8}>
           <Typography
             variant="h1"
             sx={{
-              fontSize: 60,
+              fontSize: { xs: "2rem", sm: "3rem", md: "4rem" }, // Tamaño de fuente responsivo
               textAlign: "center",
-              "&:hover .editButton": {
+              color: "#6e2864", // Color personalizado para el texto
+              fontWeight: "bold",
+              position: "relative",
+              '&:hover .editButton': {
                 opacity: 1,
               },
-              "&:hover": {
+              '&:hover': {
                 cursor: "pointer",
               },
             }}
@@ -80,6 +85,12 @@ export const Politics = () => {
                 sx={{
                   opacity: 0.2,
                   transition: "opacity 0.3s",
+                  position: "absolute",
+                  top: "10px",
+                  right: "10px",
+                  '&:hover': {
+                    opacity: 1,
+                  },
                 }}
               >
                 <Edit />
@@ -90,19 +101,25 @@ export const Politics = () => {
           <Box mt={2} sx={{ width: "100%" }}>
             <Typography
               variant="body1"
-              sx={{ whiteSpace: "pre-wrap", fontWeight: "bold", width: "100%" }}
+              sx={{
+                whiteSpace: "pre-wrap",
+                fontWeight: "bold",
+                width: "100%",
+                color: "#555", // Color del texto
+              }}
             >
               {introduction && introduction}
             </Typography>
           </Box>
-          <List>
+
+          <List sx={{ marginTop: "16px" }}>
             {politics &&
               politics.map((text) => (
-                <ListItem key={text}>
+                <ListItem key={text} sx={{ borderBottom: "1px solid #e0e0e0", padding: "8px 0" }}>
                   <ListItemIcon>
-                    <ArrowRightIcon fontSize="small" />
+                    <ArrowRightIcon fontSize="small" sx={{ color: "#2196f3" }} />
                   </ListItemIcon>
-                  <ListItemText primary={text} />
+                  <ListItemText primary={text} sx={{ color: "#555" }} />
                 </ListItem>
               ))}
           </List>

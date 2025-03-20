@@ -1,4 +1,4 @@
-import { Container, Fab } from "@mui/material";
+import { Box, Fab, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { useEffect } from "react";
@@ -21,139 +21,219 @@ export const ProcessDefinition = () => {
   }, [dispatch]);
 
   return (
-    <Container
+<Box
+  sx={{
+    backgroundColor: "#f4f6f8",
+    padding: "16px",
+    width: "100%",
+    display: "flex",
+    flexDirection: "column",
+    gap: "16px",
+  }}
+>
+  {/* Procesos Estratégicos */}
+  <Box
+    sx={{
+      backgroundColor: "#72b2cf96",
+      padding: "16px",
+      borderRadius: 2,
+      boxShadow: 3,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "16px",
+    }}
+  >
+    <Typography
+      variant="h5"
       sx={{
-        backgroundColor: "#ffffff61",
-        padding: "10px",
-        height: "100%",
-        width: "100%",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-around",
-        gap: "5px",
+        fontWeight: "bold",
+        color: "rgb(110, 40, 100)",
+        textAlign: "center",
+        fontSize: { xs: "1.5rem", sm: "1.8rem" },
       }}
     >
-      <Container
-        sx={{
-          backgroundColor: "#72b2cf96",
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "10px",
-        }}
-      >
-        <h3>Procesos Estratégicos</h3>
-        <Container
-          sx={{
-            display: "flex",
-          }}
-        >
-          {processDefinitions &&
-            processDefinitions.map((process) => {
-              if (process.type === "Estrategicos") {
-                return (
-                  <ProcessDefinitionCard
-                    id={process.id}
-                    process={process.name}
-                    area={process.area}
-                    description={process.description}
-                  />
-                );
-              }
-            })}
-        </Container>
-      </Container>
-      <Container
-        sx={{
-          textAlign: "center",
-        }}
-      >
-        <ArrowDownwardIcon fontSize="large" />
-      </Container>
-      <Container
-        sx={{
-          backgroundColor: "#848484bc",
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "10px",
-        }}
-      >
-        <h3>Procesos Operativos</h3>
-        <Container
-          sx={{
-            display: "flex",
-          }}
-        >
-          {processDefinitions &&
-            processDefinitions.map((process) => {
-              if (process.type === "Operativo") {
-                return (
-                  <ProcessDefinitionCard
-                    id={process.id}
-                    process={process.name}
-                    area={process.area}
-                    description={process.description}
-                  />
-                );
-              }
-            })}
-        </Container>
-      </Container>
-      <Container
-        sx={{
-          textAlign: "center",
-        }}
-      >
-        <ArrowUpwardIcon fontSize="large" />
-      </Container>
-      <Container
-        sx={{
-          backgroundColor: "#72b2cf96",
-          flex: 1,
-          display: "flex",
-          flexDirection: "column",
-          alignItems: "center",
-          justifyContent: "center",
-          padding: "10px",
-        }}
-      >
-        <h3>Procesos de Soporte</h3>
-        <Container
-          sx={{
-            display: "flex",
-          }}
-        >
-          {processDefinitions &&
-            processDefinitions.map((process) => {
-              if (process.type === "Soporte") {
-                return (
-                  <ProcessDefinitionCard
-                    id={process.id}
-                    process={process.name}
-                    area={process.area}
-                    description={process.description}
-                  />
-                );
-              }
-            })}
-        </Container>
-      </Container>
-      <Fab
-        onClick={() => dispatch(setEditForms({ from: "process-definitions" }))}
-        color="primary"
-        sx={{
-          position: "fixed",
-          bottom: 16,
-          right: 16,
-        }}
-      >
-        <Add />
-      </Fab>
-    </Container>
+      Procesos Estratégicos
+    </Typography>
+    <Box
+      sx={{
+        display: "flex",
+        overflowX: "auto", // Activa el scroll horizontal
+        whiteSpace: "nowrap", // Evita que los elementos se envuelvan
+        gap: "16px", // Espaciado entre los items
+        justifyContent: 'flex-start',
+        width: "100%", // Asegura que el contenedor ocupe todo el espacio disponible
+      }}
+    >
+      {processDefinitions?.map((process) => {
+        if (process.type === "Estrategicos") {
+          return (
+            <Box
+              key={process.id}
+              sx={{
+                minWidth: "200px", // Ancho mínimo para cada tarjeta
+                padding: "10px",
+                backgroundColor: "#fff",
+                borderRadius: "8px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <ProcessDefinitionCard
+                id={process.id}
+                process={process.name}
+                area={process.area}
+                description={process.description}
+              />
+            </Box>
+          );
+        }
+      })}
+    </Box>
+  </Box>
+
+  {/* Flecha hacia abajo */}
+  <Box sx={{ textAlign: "center" }}>
+    <ArrowDownwardIcon fontSize="large" sx={{ color: "#2196f3" }} />
+  </Box>
+
+  {/* Procesos Operativos */}
+  <Box
+    sx={{
+      backgroundColor: "#848484bc",
+      padding: "16px",
+      borderRadius: 2,
+      boxShadow: 3,
+      display: "flex",
+      flexDirection: "column",
+      gap: "16px",
+    }}
+  >
+    <Typography
+      variant="h5"
+      sx={{
+        fontWeight: "bold",
+        color: "rgb(110, 40, 100)",
+        textAlign: "center",
+        fontSize: { xs: "1.5rem", sm: "1.8rem" },
+      }}
+    >
+      Procesos Operativos
+    </Typography>
+    <Box
+      sx={{
+        display: "flex",
+        overflowX: "auto", // Activa el scroll horizontal
+        whiteSpace: "nowrap", // Evita que los elementos se envuelvan
+        gap: "16px", // Espaciado entre los items
+        justifyContent: 'flex-start',
+        width: "100%", // Asegura que el contenedor ocupe todo el espacio disponible
+      }}
+    >
+      {processDefinitions?.map((process) => {
+        if (process.type === "Operativo") {
+          return (
+            <Box
+              key={process.id}
+              sx={{
+                minWidth: "200px", // Ancho mínimo para cada tarjeta
+                padding: "10px",
+                backgroundColor: "#fff",
+                borderRadius: "8px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <ProcessDefinitionCard
+                id={process.id}
+                process={process.name}
+                area={process.area}
+                description={process.description}
+              />
+            </Box>
+          );
+        }
+      })}
+    </Box>
+  </Box>
+
+  {/* Flecha hacia arriba */}
+  <Box sx={{ textAlign: "center" }}>
+    <ArrowUpwardIcon fontSize="large" sx={{ color: "#2196f3" }} />
+  </Box>
+
+  {/* Procesos de Soporte */}
+  <Box
+    sx={{
+      backgroundColor: "#72b2cf96",
+      padding: "16px",
+      borderRadius: 2,
+      boxShadow: 3,
+      display: "flex",
+      flexDirection: "column",
+      alignItems: "center",
+      gap: "16px",
+    }}
+  >
+    <Typography
+      variant="h5"
+      sx={{
+        fontWeight: "bold",
+        color: "rgb(110, 40, 100)",
+        textAlign: "center",
+        fontSize: { xs: "1.5rem", sm: "1.8rem" },
+      }}
+    >
+      Procesos de Soporte
+    </Typography>
+    <Box
+      sx={{
+        display: "flex",
+        overflowX: "auto", // Activa el scroll horizontal
+        whiteSpace: "nowrap", // Evita que los elementos se envuelvan
+        gap: "16px", // Espaciado entre los items
+        justifyContent: "center",
+        width: "100%", // Asegura que el contenedor ocupe todo el espacio disponible
+      }}
+    >
+      {processDefinitions?.map((process) => {
+        if (process.type === "Soporte") {
+          return (
+            <Box
+              key={process.id}
+              sx={{
+                minWidth: "200px", // Ancho mínimo para cada tarjeta
+                padding: "10px",
+                backgroundColor: "#fff",
+                borderRadius: "8px",
+                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+              }}
+            >
+              <ProcessDefinitionCard
+                id={process.id}
+                process={process.name}
+                area={process.area}
+                description={process.description}
+              />
+            </Box>
+          );
+        }
+      })}
+    </Box>
+  </Box>
+
+  {/* Botón flotante de agregar */}
+  <Fab
+    onClick={() => dispatch(setEditForms({ from: "process-definitions" }))} 
+    color="primary"
+    sx={{
+      position: "fixed",
+      bottom: 16,
+      right: 16,
+      boxShadow: 3,
+    }}
+    aria-label="Agregar proceso"
+  >
+    <Add />
+  </Fab>
+</Box>
   );
 };

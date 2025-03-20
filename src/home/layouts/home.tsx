@@ -4,7 +4,7 @@ import { Toolbar } from "@mui/material";
 import { Objective } from "../views/objective";
 import { FormScreen } from "../../layouts/form-screen";
 import { useSelector } from "react-redux";
-import { FormModal } from "../../components/modal";
+import BasicModal from "../../components/modal-ui";
 
 
 
@@ -38,7 +38,7 @@ export const HomeLayout = () => {
         <Toolbar />
         <Politics />
         <Objective />
-        <FormModal/>
+        <BasicModal/>
       </Box>
     </>
 

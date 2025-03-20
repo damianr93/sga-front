@@ -12,7 +12,6 @@ export const PlanningPage = () => {
             justifyContent='space-between'
             alignItems='center'
             sx={{
-                backgroundColor:'#81a3b86a',
                 minHeight: "100vh",
             }}>
                 <PlanningLayout/>

@@ -33,7 +33,7 @@ export const LoginPage = () => {
       return;
     }
 
-    const user = await fetch("http://localhost:3000/auth/login", {
+    const user = await fetch("http://localhost:3001/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -49,7 +49,7 @@ export const LoginPage = () => {
       removeUserLogged();
       return;
     }
-    console.log(user); 
+
     saveUserLogged(user.access_token, user.username, user.role);
     dispatch(isLoading());
     navegate("/home");
