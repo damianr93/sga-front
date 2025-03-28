@@ -1,6 +1,7 @@
 import { API } from "../../../api/API";
 import { setPolitics, updatePolitics } from "./politics-slice";
 import { AppThunk } from "../../store";
+import { setEditForms } from "../edit-forms/edit-slice";
 
 export const getPoliticsThunks = (): AppThunk => {
   return async (dispatch) => {
@@ -26,13 +27,17 @@ export const getPoliticsThunks = (): AppThunk => {
   };
 };
 
-export const postPoliticsThunks = (id: string | null = null, newIntroduction: string, newPoliticts: string[], targets: string[]): AppThunk => {
+export const postPoliticsThunks = (
+  id: string | null = null,
+  newIntroduction: string,
+  newPoliticts: string[],
+): AppThunk => {
+
   return async (dispatch) => {
     try {
-      console.log(id, newIntroduction, newPoliticts, targets)
 
       if (!id) {
-        await fetch(`${API}/politics`, {
+        const response = await fetch(`${API}/politics`, {
           method: "POST",
           headers: {
             'Content-Type': 'application/json',
@@ -41,12 +46,16 @@ export const postPoliticsThunks = (id: string | null = null, newIntroduction: st
           body: JSON.stringify({
             introduction: newIntroduction,
             politics: newPoliticts,
-            targets: targets
           })
         });
+
+        if (response) {
+          dispatch(setEditForms({ form: "" }))
+        }
+
       }
 
-      await fetch(`${API}/politics/${id}`, {
+      const response = await fetch(`${API}/politics/${id}`, {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json',
@@ -55,17 +64,23 @@ export const postPoliticsThunks = (id: string | null = null, newIntroduction: st
         body: JSON.stringify({
           introduction: newIntroduction,
           politics: newPoliticts,
-          targets: targets
         })
       });
+
+      if (response) {
+        dispatch(setEditForms({ form: "" }))
+      }
 
       dispatch(updatePolitics({
         newIntroduction,
         newPoliticts,
-        targets
-      }));
+      })
+      );
+
     } catch (error) {
+
       console.error('Failed to fetch politics:', error);
+
     }
   };
 };

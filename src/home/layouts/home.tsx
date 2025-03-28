@@ -2,27 +2,12 @@ import { Box } from "@mui/system";
 import { Politics } from "../views/politics";
 import { Toolbar } from "@mui/material";
 import { Objective } from "../views/objective";
-import { FormScreen } from "../../layouts/form-screen";
-import { useSelector } from "react-redux";
 import BasicModal from "../../components/modal-ui";
-
-
-
-interface EditState {
-  state: boolean
-}
-
-interface RootState {
-  editForms: EditState;
-}
 
 export const HomeLayout = () => {
   
-  const state = useSelector((state:RootState) => state.editForms.state)
-
   return (
     <>
-      {state && <FormScreen />}
       <Box
         component="main"
         sx={{

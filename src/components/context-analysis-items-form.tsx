@@ -5,6 +5,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -46,56 +47,53 @@ export const ContextAnalysisItemsForm = () => {
     <Box
       sx={{
         backgroundColor: "white",
-        padding: "25px",
-        borderRadius: "5px",
+        padding: "30px",
+        borderRadius: "10px",
         width: "900px",
         maxHeight: "75vh",
-        overflowY: "scroll",
+        overflowY: "auto",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
       }}
     >
       <form>
-        <Typography variant="h3" align="center" width="100%">
+        <Typography variant="h4" align="center" gutterBottom>
           Puede editar su información
         </Typography>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">Tipo</InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            name="type"
-            value={type}
-            label="Tipo"
+
+        <Stack spacing={2}>
+          <FormControl fullWidth>
+            <InputLabel id="tipo-select-label">Tipo</InputLabel>
+            <Select
+              labelId="tipo-select-label"
+              id="tipo-select"
+              name="type"
+              value={type}
+              label="Tipo"
+              onChange={onInputChange}
+            >
+              <MenuItem value="Fortaleza">Fortaleza</MenuItem>
+              <MenuItem value="Debilidad">Debilidad</MenuItem>
+              <MenuItem value="Oportunidad">Oportunidad</MenuItem>
+              <MenuItem value="Amenaza">Amenaza</MenuItem>
+            </Select>
+          </FormControl>
+
+          <TextField
+            label="Descripción"
+            variant="outlined"
+            name="description"
+            value={description}
             onChange={onInputChange}
-          >
-            <MenuItem value="Fortaleza">Fortaleza</MenuItem>
-            <MenuItem value="Debilidad">Debilidad</MenuItem>
-            <MenuItem value="Oportunidad">Oportunidad</MenuItem>
-            <MenuItem value="Amenaza">Amenaza</MenuItem>
-          </Select>
-        </FormControl>
-        <TextField
-          id="outlined-textarea"
-          label="Descripción"
-          variant="outlined"
-          name="description"
-          value={description}
-          onChange={onInputChange}
-          multiline
-          sx={{
-            marginTop: "5px",
-            width: "100%",
-          }}
-        />
-        <Button
-          variant="contained"
-          onClick={onSubmit}
-          sx={{
-            margin: "10px",
-          }}
-        >
-          Submit
-        </Button>
+            multiline
+            fullWidth
+          />
+
+          <Button variant="contained" onClick={onSubmit} fullWidth>
+            Submit
+          </Button>
+        </Stack>
       </form>
     </Box>
+
   );
 };

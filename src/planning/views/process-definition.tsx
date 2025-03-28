@@ -18,7 +18,7 @@ export const ProcessDefinition = () => {
 
   useEffect(() => {
     dispatch(getProcessDefinitionThunks());
-  }, [dispatch]);
+  }, []);
 
   return (
 <Box
@@ -83,6 +83,7 @@ export const ProcessDefinition = () => {
                 process={process.name}
                 area={process.area}
                 description={process.description}
+                alcanzado = {process.alcanzado}
               />
             </Box>
           );
@@ -99,7 +100,7 @@ export const ProcessDefinition = () => {
   {/* Procesos Operativos */}
   <Box
     sx={{
-      backgroundColor: "#848484bc",
+      backgroundColor: "rgba(110, 40, 99, 0.34)",
       padding: "16px",
       borderRadius: 2,
       boxShadow: 3,
@@ -139,7 +140,7 @@ export const ProcessDefinition = () => {
                 padding: "10px",
                 backgroundColor: "#fff",
                 borderRadius: "8px",
-                boxShadow: "0 2px 4px rgba(0, 0, 0, 0.1)",
+                boxShadow: "0 2px 4px rgba(188, 129, 129, 0.1)",
               }}
             >
               <ProcessDefinitionCard
@@ -147,6 +148,7 @@ export const ProcessDefinition = () => {
                 process={process.name}
                 area={process.area}
                 description={process.description}
+                alcanzado={process.alcanzado}
               />
             </Box>
           );
@@ -190,7 +192,7 @@ export const ProcessDefinition = () => {
         overflowX: "auto", // Activa el scroll horizontal
         whiteSpace: "nowrap", // Evita que los elementos se envuelvan
         gap: "16px", // Espaciado entre los items
-        justifyContent: "center",
+        justifyContent: 'flex-start',
         width: "100%", // Asegura que el contenedor ocupe todo el espacio disponible
       }}
     >
@@ -212,6 +214,7 @@ export const ProcessDefinition = () => {
                 process={process.name}
                 area={process.area}
                 description={process.description}
+                alcanzado={process.alcanzado}
               />
             </Box>
           );

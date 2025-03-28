@@ -7,6 +7,7 @@ import {
   InputLabel,
   MenuItem,
   Select,
+  Stack,
   TextField,
   Typography,
 } from "@mui/material";
@@ -46,17 +47,17 @@ export const InterestedPartiesForm = () => {
 
     initialValues = itemFound
       ? {
-          name: itemFound.name,
-          requeriment: itemFound.requirement,
-          legalRequirement: itemFound.legalRequirement,
-          intExt: itemFound.intExt,
-        }
+        name: itemFound.name,
+        requeriment: itemFound.requirement,
+        legalRequirement: itemFound.legalRequirement,
+        intExt: itemFound.intExt,
+      }
       : {
-          name: "",
-          requeriment: "",
-          legalRequirement: false,
-          intExt: "",
-        };
+        name: "",
+        requeriment: "",
+        legalRequirement: false,
+        intExt: "",
+      };
   }
 
   const { onInputChange, formState } = useForm(initialValues);
@@ -85,45 +86,40 @@ export const InterestedPartiesForm = () => {
     <Box
       sx={{
         backgroundColor: "white",
-        padding: "25px",
-        borderRadius: "5px",
+        padding: "30px",
+        borderRadius: "10px",
         width: "900px",
         maxHeight: "75vh",
-        overflowY: "scroll",
+        overflowY: "auto",
+        boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
       }}
     >
       <form>
-        <Typography variant="h3" align="center" width="100%">
+        <Typography variant="h4" align="center" gutterBottom>
           Puede editar su información
         </Typography>
-        <TextField
-          id="outlined-textarea"
-          label="Identificacion de la parte interesada"
-          variant="outlined"
-          name="name"
-          value={name}
-          onChange={onInputChange}
-          multiline
-          sx={{
-            marginTop: "5px",
-            width: "100%",
-          }}
-        />
 
-        <TextField
-          id="outlined-textarea"
-          label="Requisito de la Parte interesada"
-          variant="outlined"
-          name="requeriment"
-          value={requeriment}
-          onChange={onInputChange}
-          multiline
-          sx={{
-            marginTop: "5px",
-            width: "100%",
-          }}
-        />
-        <Box>
+        <Stack spacing={2}>
+          <TextField
+            label="Identificación de la parte interesada"
+            variant="outlined"
+            name="name"
+            value={name}
+            onChange={onInputChange}
+            multiline
+            fullWidth
+          />
+
+          <TextField
+            label="Requisito de la Parte interesada"
+            variant="outlined"
+            name="requeriment"
+            value={requeriment}
+            onChange={onInputChange}
+            multiline
+            fullWidth
+          />
+
           <FormControlLabel
             control={
               <Checkbox
@@ -132,35 +128,30 @@ export const InterestedPartiesForm = () => {
                 onChange={onInputChange}
               />
             }
-            label="El requerimiento de la parte interesada es ademas un requisito legal"
+            label="El requerimiento de la parte interesada es además un requisito legal"
           />
-        </Box>
-        <FormControl fullWidth>
-          <InputLabel id="demo-simple-select-label">
-            La parte interesada es interna o externa?
-          </InputLabel>
-          <Select
-            labelId="demo-simple-select-label"
-            id="demo-simple-select"
-            name="intExt"
-            value={intExt}
-            label="Interno o externo"
-            onChange={onInputChange}
-          >
-            <MenuItem value="Interno">Interno</MenuItem>
-            <MenuItem value="Externo">Externo</MenuItem>
-          </Select>
-        </FormControl>
-        <Button
-          variant="contained"
-          onClick={onSubmit}
-          sx={{
-            margin: "10px",
-          }}
-        >
-          Submit
-        </Button>
+
+          <FormControl fullWidth>
+            <InputLabel id="part-select-label">La parte interesada es interna o externa?</InputLabel>
+            <Select
+              labelId="part-select-label"
+              id="part-select"
+              name="intExt"
+              value={intExt}
+              label="Interno o Externo"
+              onChange={onInputChange}
+            >
+              <MenuItem value="Interno">Interno</MenuItem>
+              <MenuItem value="Externo">Externo</MenuItem>
+            </Select>
+          </FormControl>
+
+          <Button variant="contained" onClick={onSubmit} fullWidth>
+            Submit
+          </Button>
+        </Stack>
       </form>
     </Box>
+
   );
 };

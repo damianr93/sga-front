@@ -6,6 +6,8 @@ import { useSelector } from "react-redux";
 import { FormScreen } from "../../layouts/form-screen";
 import { ProcessDefinition } from "../views/process-definition";
 import Sidebar from "../components/Sidebar";
+import { ProcesosAlcanzados } from "../views/procesos-alcanzados";
+import { RiesgosOportunidades } from "../views/riesgos-oportunidades";
 
 interface EditState {
   state: boolean;
@@ -30,11 +32,14 @@ export const PlanningLayout = () => {
       case "4.4 Establecimiento de Procesos":
         setViewSelected(<ProcessDefinition />);
         break;
-      case "Dashboard":
-        setViewSelected(<div>Dashboard</div>); // O tu componente de Dashboard
+      case "4.3 Alcance del SGA":
+        setViewSelected(<ProcesosAlcanzados />);
         break;
+      case "6.1 Acciones para abordar riesgos y oportunidades":
+      setViewSelected(<RiesgosOportunidades/>)  
+      break
       default:
-        setViewSelected(null); // O algún contenido por defecto
+        setViewSelected(null);
         break;
     }
   };
@@ -45,7 +50,9 @@ export const PlanningLayout = () => {
       container
       sx={{
         marginTop: "65px",
-        height: "calc(100vh - 65px)", // ✅ Ocupa toda la pantalla menos la altura de la barra superior
+        height: "calc(100vh - 65px)",
+        display:"flex",
+        justifyContent:"center",
       }}
       className="animate__animated animate__backInRight"
     >
@@ -62,12 +69,13 @@ export const PlanningLayout = () => {
           padding: { xs: "20px", sm: "30px" },
           display: "flex",
           flexDirection: "column",
-          flexGrow: 1, 
-          height: "100%",
-          marginLeft:'30px'
+          flexGrow: 1,
         }}
       >
-        {viewSelected}
+        {viewSelected ?
+          viewSelected :
+          <ContextAnalysis />
+        }
       </Grid>
     </Grid>
 

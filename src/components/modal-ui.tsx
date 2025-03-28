@@ -1,5 +1,4 @@
 import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
 import Modal from '@mui/material/Modal';
 import { useDispatch, useSelector } from 'react-redux';
 import { RootState } from '../store/store';
@@ -10,6 +9,7 @@ import { ContextAnalysisForm } from './context-analysis-form';
 import { ContextAnalysisItemsForm } from './context-analysis-items-form';
 import { InterestedPartiesForm } from './interested-parties-form';
 import { ProcessDefinitionsForm } from './process-definitions-form';
+import { ProcesosAlcanzadosForm } from './procesos-alcanzados-form';
 
 const style = {
   position: 'absolute',
@@ -23,29 +23,29 @@ const style = {
 };
 
 export default function BasicModal() {
-    const {state} = useSelector((state:RootState) => state.editForms)
-    const dispatch = useDispatch();
-    
-    const from = useSelector((state: RootState) => state.editForms.from);
-  
-    const formSelected = () => {
-      switch (from) {
-        case "targets":
-          return <TargetsForm />;
-        case "politics":
-          return <PoliticsForm />;
-        case "foda-add":
-          return <ContextAnalysisForm />;
-        case "foda-edit":
-          return <ContextAnalysisItemsForm />;
-        case "interested-parties":
-          return <InterestedPartiesForm />;
-        case "process-definitions":
-          return <ProcessDefinitionsForm />;
-        default:
-          break;
-      }
-    };
+  const { state, from } = useSelector((state: RootState) => state.editForms)
+  const dispatch = useDispatch();
+
+  const formSelected = () => {
+    switch (from) {
+      case "targets":
+        return <TargetsForm />;
+      case "politics":
+        return <PoliticsForm />;
+      case "foda-add":
+        return <ContextAnalysisForm />;
+      case "foda-edit":
+        return <ContextAnalysisItemsForm />;
+      case "interested-parties":
+        return <InterestedPartiesForm />;
+      case "process-definitions":
+        return <ProcessDefinitionsForm />;
+        case "procesos-alcanzados":
+          return <ProcesosAlcanzadosForm />;
+      default:
+        break;
+    }
+  };
 
   return (
     <div>
@@ -56,9 +56,8 @@ export default function BasicModal() {
         aria-describedby="modal-modal-description"
       >
         <Box sx={style}>
-          <Typography id="modal-modal-description" sx={{ mt: 2 }}>
-            {formSelected()}
-          </Typography>
+          {/* Aquí se renderiza el formulario seleccionado sin necesidad de Typography */}
+          {formSelected()}
         </Box>
       </Modal>
     </div>

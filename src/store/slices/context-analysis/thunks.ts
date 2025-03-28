@@ -1,5 +1,6 @@
 import { API } from "../../../api/API";
 import { AppThunk } from "../../store";
+import { setEditForms } from "../edit-forms/edit-slice";
 import { deleteAnalisisContext, setAnalisisContext, updateAnalisisContext } from "./context-analysis-slice";
 
 
@@ -66,6 +67,10 @@ export const postContextAnalysisThunks = (type: string, description: string): Ap
 
       const newAnalysis = await response.json();
 
+      if(response) {
+        dispatch(setEditForms({ from: ""}))
+      }
+
       dispatch(updateAnalisisContext(newAnalysis));
 
 
@@ -79,7 +84,7 @@ export const patchContextAnalysisThunks = (id: string, type: string, description
   return async (dispatch) => {
     try {
 
-      await fetch(`${API}/context-analysis/${id}`, {
+      const response = await fetch(`${API}/context-analysis/${id}`, {
         method: "PATCH",
         headers: {
           'Content-Type': 'application/json',
@@ -90,6 +95,10 @@ export const patchContextAnalysisThunks = (id: string, type: string, description
           description
         })
       });
+
+      if(response) {
+        dispatch(setEditForms({ from: ""}))
+      }
 
       dispatch(updateAnalisisContext({ id, type, description }));
 

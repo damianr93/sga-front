@@ -82,7 +82,7 @@ export default function PartiesBasicTable({
                         dispatch(
                           setEditForms({
                             from: "interested-parties",
-                            data: row,
+                            id: row.id,
                           })
                         )
                       }

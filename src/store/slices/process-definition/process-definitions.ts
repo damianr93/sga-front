@@ -6,6 +6,7 @@ interface Process {
   name: string;
   type: string;
   description: string;
+  alcanzado:boolean
 }
 
 interface ProcessDefinitionsState {
@@ -27,8 +28,12 @@ export const processDefinitionsSlice = createSlice({
       state.processDefinitions.push(action.payload);
     },
     updateProcessDefinition: (state, action) => {
-      //!Hay que actualizar el arreglo
-    },
+      const index = state.processDefinitions.findIndex(item => item.id === action.payload.id);
+      if (index !== -1) {
+        state.processDefinitions[index] = action.payload;
+      
+      }
+    },  
     deleteProcessDefinition: (state, action) => {
       state.processDefinitions = state.processDefinitions.filter(
         (item) => item.id !== action.payload

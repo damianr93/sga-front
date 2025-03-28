@@ -1,5 +1,6 @@
 import { API } from "../../../api/API";
 import { AppThunk } from "../../store";
+import { setEditForms } from "../edit-forms/edit-slice";
 import {
   deleteInterestedParties,
   setInterestedParties,
@@ -75,6 +76,10 @@ export const postInterestedPartiesThunks = (
 
       const newPartInterested = await response.json();
 
+      if(response){
+        dispatch(setEditForms({ from: "" }))
+      }
+
       dispatch(updateInterestedParties(newPartInterested));
     } catch (error) {
       console.error("Failed to post context analysis:", error);
@@ -91,7 +96,7 @@ export const patchInterestedPartiesThunks = (
 ): AppThunk => {
   return async (dispatch) => {
     try {
-      await fetch(`${API}/interested-parties/${id}`, {
+      const response = await fetch(`${API}/interested-parties/${id}`, {
         method: "PATCH",
         headers: {
           "Content-Type": "application/json",
@@ -104,6 +109,10 @@ export const patchInterestedPartiesThunks = (
           intExt,
         }),
       });
+
+      if(response){
+        dispatch(setEditForms({ from: "" }))
+      }
 
       dispatch(updateInterestedParties({ id, name, requirement, legalRequirement, intExt }));
     } catch (error) {
@@ -122,7 +131,11 @@ export const deletInterestedPartiesThunks = (id: string): AppThunk => {
           "ngrok-skip-browser-warning": "true",
         },
       });
-      console.log(response);
+
+      if (response.status !== 200) {
+        throw new Error("Failed to delete interested parties");
+      }
+
       dispatch(deleteInterestedParties(id));
     } catch (error) {
       console.error("Failed to post context analysis:", error);

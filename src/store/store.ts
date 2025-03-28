@@ -5,6 +5,7 @@ import { contextAnalysisSlice } from './slices/context-analysis/context-analysis
 import { interestedPartiesSlice } from './slices/interested-parties/interested-parties-slice'
 import { processDefinitionsSlice } from './slices/process-definition/process-definitions'
 import { loadingSlice } from './slices/loading/loading'
+import { targetsSlice } from './slices/targets/targets'
 
 export const store = configureStore({
   reducer: {
@@ -14,6 +15,7 @@ export const store = configureStore({
     interestedParties:interestedPartiesSlice.reducer,
     processDefinitions:processDefinitionsSlice.reducer,
     isLoading:loadingSlice.reducer,
+    targets: targetsSlice.reducer
   },
 })
 

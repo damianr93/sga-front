@@ -4,25 +4,25 @@ import ArrowRightIcon from '@mui/icons-material/ArrowRight';
 import { useDispatch, useSelector } from 'react-redux';
 import { useEffect } from 'react';
 import { setEditForms } from '../../store/slices/edit-forms/edit-slice';
-import { getPoliticsThunks } from '../../store/slices/politics/thunks';
 import { AppDispatch } from '../../store/store';
 import { getUserLogged } from '../../utils/storage';
+import { getTargetsThunks } from '../../store/slices/targets/thunks';
 
 
 export const Objective = () => {
 
-    const { targets } = useSelector((state: any) => state.politics)
+    const { targets } = useSelector((state: any) => state.targets)
     const item = getUserLogged();
     if (!item) {
         return null;
     }
+
     const { role } = JSON.parse(item);
 
     const dispatch = useDispatch<AppDispatch>();
 
     useEffect(() => {
-        dispatch(getPoliticsThunks());
-
+        dispatch(getTargetsThunks());
     }, [dispatch])
 
     return (
@@ -62,7 +62,7 @@ export const Objective = () => {
                         Objetivos
                         {role === "admin" && (
                             <Button
-                                onClick={() => dispatch(setEditForms({ from: "politics" }))}
+                                onClick={() => dispatch(setEditForms({ from: "targets" }))}
                                 className="editButton"
                                 sx={{
                                     opacity: 0.2,
@@ -81,12 +81,12 @@ export const Objective = () => {
                     </Typography>
 
                     <List sx={{ marginTop: "16px" }}>
-                        {targets && targets.map((text: any, index: number) => (
-                            <ListItem key={index} sx={{ borderBottom: "1px solid #e0e0e0", padding: "8px 0" }}>
+                        {targets && targets.map((target: any) => (
+                            <ListItem key={target.id} sx={{ borderBottom: "1px solid #e0e0e0", padding: "8px 0" }}>
                                 <ListItemIcon>
                                     <ArrowRightIcon fontSize="small" sx={{ color: "#2196f3" }} />
                                 </ListItemIcon>
-                                <ListItemText primary={text} sx={{ color: "#555" }} />
+                                <ListItemText primary={target.description} sx={{ color: "#555" }} />
                             </ListItem>
                         ))}
                     </List>

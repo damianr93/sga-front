@@ -33,7 +33,7 @@ export const LoginPage = () => {
       return;
     }
 
-    const user = await fetch("http://localhost:3001/auth/login", {
+    const user = await fetch("http://localhost:3000/auth/login", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",

@@ -30,7 +30,8 @@ export const postProcessDefinitionsThunks = (
   area: string,
   name: string,
   type: string,
-  description: string
+  description: string,
+  alcanzado:boolean
 ): AppThunk => {
   return async (dispatch) => {
     try {
@@ -44,6 +45,7 @@ export const postProcessDefinitionsThunks = (
           name,
           type,
           description,
+          alcanzado
         }),
       });
 
@@ -58,10 +60,13 @@ export const postProcessDefinitionsThunks = (
 
 export const patchProcessDefinitionsThunks = (
   id: string,
-  area: string,
-  name: string,
-  type: string,
-  description: string
+  updateFields: Partial<{
+    area: string;
+    name: string;
+    type: string;
+    description: string;
+    alcanzado: boolean;
+  }>
 ): AppThunk => {
   return async (dispatch) => {
     try {
@@ -71,19 +76,14 @@ export const patchProcessDefinitionsThunks = (
           "Content-Type": "application/json",
           "ngrok-skip-browser-warning": "true",
         },
-        body: JSON.stringify({
-          area,
-          name,
-          type,
-          description,
-        }),
+        body: JSON.stringify(updateFields), // Ahora solo enviamos lo que queremos modificar
       });
 
       const newProcessDefinitions = await response.json();
-      
+
       dispatch(updateProcessDefinition(newProcessDefinitions));
     } catch (error) {
-      console.error("Failed to post context analysis:", error);
+      console.error("Failed to update process definition:", error);
     }
   };
 };
@@ -98,6 +98,10 @@ export const deleteProcessDefinitionThunks = (id: string): AppThunk => {
           "ngrok-skip-browser-warning": "true",
         },
       });
+
+      if (!response.ok) {
+        throw new Error("Failed to delete process definition");
+      }
 
       dispatch(deleteProcessDefinition(id));
     } catch (error) {
