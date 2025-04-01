@@ -1,212 +1,231 @@
-import PropTypes from "prop-types";
+import React, { useState, useMemo, useEffect } from "react";
+// import PropTypes from "prop-types";
 import {
-    Table,
-    TableBody,
-    TableCell,
-    TableContainer,
-    TableHead,
-    TableRow,
-    Paper,
-    IconButton,
-    TablePagination,
-    Box,
-    Tooltip,
-    TextField,
-    MenuItem,
-    IconButtonProps,
+  Box,
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+  IconButton,
+  TablePagination,
+  Tooltip,
+  TextField,
+  MenuItem,
+  Button,
 } from "@mui/material";
-import { useState, useMemo, ReactElement } from "react";
 
-interface Column<T = Record<string, unknown>> {
-    field: keyof T;
-    headerName: string;
-    align?: 'left' | 'center' | 'right';
+export interface Column {
+  field: string;
+  headerName: string;
+  align?: "left" | "right" | "center";
 }
 
-interface Action {
-    name: string;
-    icon: ReactElement;
-    color?: IconButtonProps['color'];
-    tooltip?: string;
+interface RowData {
+  [key: string]: any;
 }
 
-interface CustomTableProperties<T = Record<string, unknown>> {
-    columns: Column<T>[];
-    data: T[];
-    actions?: Action[];
-    onActionClick?: (actionName: string, rowData: T) => void;
-    pagination?: {
-        rowsPerPage?: number;
-        rowsPerPageOptions?: number[];
-    };
+export interface Action {
+  name?: string;
+  color?: "default" | "primary" | "secondary" | "inherit";
+  icon: React.ReactNode;
+  tooltip:string
 }
 
-const CustomTable = <T extends Record<string, unknown>>({
-    columns,
-    data,
-    actions,
-    onActionClick,
-    pagination
-}: CustomTableProperties<T>) => {
-    const [page, setPage] = useState(0);
-    const [rowsPerPage, setRowsPerPage] = useState(pagination?.rowsPerPage || 5);
+interface PaginationProps {
+  rowsPerPage?: number;
+  rowsPerPageOptions?: number[];
+}
 
-    const [searchColumn, setSearchColumn] = useState('');
-    const [searchTerm, setSearchTerm] = useState('');
+interface CustomTableProps {
+  columns: Column[];
+  data: RowData[];
+  actions?: Action[];
+  onActionClick: (action: Action, row: any) => void;
+  pagination?: PaginationProps;
+}
 
-    const handleChangePage = (event: unknown, newPage: number) => {
-        setPage(newPage);
-    };
 
-    const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setRowsPerPage(parseInt(event.target.value, 10));
-        setPage(0);
-    };
+const CustomTable: React.FC<CustomTableProps> = ({ columns, data, actions, onActionClick, pagination }) => {
+  const [tableData, setTableData] = useState(data);
+  const [page, setPage] = useState(0);
+  const [rowsPerPage, setRowsPerPage] = useState(pagination?.rowsPerPage || 5);
+  const [searchColumn, setSearchColumn] = useState("");
+  const [searchTerm, setSearchTerm] = useState("");
+  const [isModified, setIsModified] = useState(false);
 
-    const filteredData = useMemo(() => {
-        if (!searchColumn || !searchTerm) return data;
+  useEffect(() => {
+    setTableData(data);
+  }, [data]);
 
-        return data.filter((row) =>
-            String(row[searchColumn])
-                .toLowerCase()
-                .includes(searchTerm.toLowerCase())
-        );
-    }, [searchColumn, searchTerm, data]);
 
-    const paginatedData = pagination
-        ? filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-        : filteredData;
+  const filteredData = useMemo(() => {
+    if (!searchColumn || !searchTerm) return tableData;
+    return tableData.filter((row) => {
+      let value = "";
+      if (searchColumn.includes(".")) {
+        const [parent, child] = searchColumn.split(".");
+        value = row[parent] && row[parent][child] ? row[parent][child] : "";
+      } else {
+        value = row[searchColumn] || "";
+      }
+      return String(value).toLowerCase().includes(searchTerm.toLowerCase());
+    });
+  }, [searchColumn, searchTerm, tableData]);
 
-    return (
-        <Box>
-            <Box
-                sx={{
-                    display: "flex",
-                    alignItems: "center",
-                    gap: 2,
-                    mb: 2,
-                    p: 2,
-                    borderRadius: 2,
-                }}
-            >
-                <TextField
-                    select
-                    label="Buscar por"
-                    value={searchColumn}
-                    onChange={(e) => setSearchColumn(e.target.value)}
-                    sx={{ minWidth: 200 }}
-                >
-                    {columns.map((column, index) => (
-                        <MenuItem
-                            key={`${String(column.field)}-${index}`}
-                            value={String(column.field)}
-                        >
-                            {column.headerName}
-                        </MenuItem>
-                    ))}
-                </TextField>
-                <TextField
-                    label="Valor a buscar"
-                    value={searchTerm}
-                    onChange={(e) => setSearchTerm(e.target.value)}
-                    sx={{ flexGrow: 1 }}
-                />
-            </Box>
+  const paginatedData = pagination
+    ? filteredData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+    : filteredData;
 
-            <TableContainer component={Paper} sx={{ maxHeight: 440, overflow: "auto" }}>
-                <Table stickyHeader>
-                    <TableHead>
-                        <TableRow>
-                            {columns.map((column) => (
-                                <TableCell
-                                    key={String(column.field)}
-                                    align={column.align || "left"}
-                                    sx={{ fontWeight: "bold", backgroundColor: "#f5f5f5" }}
-                                >
-                                    {column.headerName}
-                                </TableCell>
-                            ))}
-                            {actions && <TableCell align="center">Acciones</TableCell>}
-                        </TableRow>
-                    </TableHead>
-                    <TableBody>
-                        {paginatedData.map((row, rowIndex) => (
-                            <TableRow key={rowIndex}>
-                                {columns.map((column) => (
-                                    <TableCell
-                                        key={`${rowIndex}-${String(column.field)}`}
-                                        align={column.align || "left"}
-                                    >
-                                        {/* Safely access row data */}
-                                        {row[column.field] !== undefined
-                                            ? String(row[column.field])
-                                            : ''}
-                                    </TableCell>
-                                ))}
-                                {actions && actions.length > 0 && (
-                                    <TableCell align="center">
-                                        {actions.map((action, actionIndex) => (
-                                            <Tooltip
-                                                key={actionIndex}
-                                                title={action.tooltip || ""}
-                                                arrow
-                                            >
-                                                <IconButton
-                                                    color={action.color || "default"}
-                                                    size="small"
-                                                    // Safely handle onClick with optional chaining
-                                                    onClick={() => onActionClick?.(action.name, row)}
-                                                    sx={{ m: 0.5 }}
-                                                >
-                                                    {action.icon}
-                                                </IconButton>
-                                            </Tooltip>
-                                        ))}
-                                    </TableCell>
-                                )}
-                            </TableRow>
-                        ))}
-                    </TableBody>
-                </Table>
-            </TableContainer>
+  const handleChangePage = (event: unknown, newPage:number) => {
+    setPage(newPage);
+  };
 
-            {pagination && (
-                <TablePagination
-                    rowsPerPageOptions={pagination.rowsPerPageOptions || [5, 10, 25]}
-                    component="div"
-                    count={filteredData.length}
-                    rowsPerPage={rowsPerPage}
-                    page={page}
-                    onPageChange={handleChangePage}
-                    onRowsPerPageChange={handleChangeRowsPerPage}
-                />
-            )}
+  const handleChangeRowsPerPage = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setRowsPerPage(parseInt(event.target.value, 10));
+    setPage(0);
+  };
+
+  const handleConfirmChanges = () => {
+    console.log("Nuevos choferes:", tableData);
+    setIsModified(false);
+  };
+
+
+  return (
+      <Box>
+        {/* Filtros de búsqueda */}
+        <Box
+          sx={{
+            display: "flex",
+            alignItems: "center",
+            gap: 2,
+            mb: 2,
+            p: 2,
+            borderRadius: 2,
+          }}
+        >
+          <TextField
+            select
+            label="Buscar por"
+            value={searchColumn}
+            onChange={(e) => setSearchColumn(e.target.value)}
+            sx={{ minWidth: 200 }}
+          >
+            {columns.map((column) => (
+              <MenuItem key={column.field} value={column.field}>
+                {column.headerName}
+              </MenuItem>
+            ))}
+          </TextField>
+          <TextField
+            label="Valor a buscar"
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            sx={{ flexGrow: 1 }}
+          />
         </Box>
-    );
-};
 
-CustomTable.propTypes = {
-    columns: PropTypes.arrayOf(
-        PropTypes.shape({
-            field: PropTypes.string.isRequired,
-            headerName: PropTypes.string.isRequired,
-            align: PropTypes.oneOf(["left", "center", "right"]),
-        })
-    ).isRequired,
-    data: PropTypes.arrayOf(PropTypes.object).isRequired,
-    actions: PropTypes.arrayOf(
-        PropTypes.shape({
-            name: PropTypes.string.isRequired,
-            icon: PropTypes.element.isRequired,
-            color: PropTypes.string,
-            tooltip: PropTypes.string,
-        })
-    ),
-    onActionClick: PropTypes.func,
-    pagination: PropTypes.shape({
-        rowsPerPage: PropTypes.number,
-        rowsPerPageOptions: PropTypes.arrayOf(PropTypes.number),
-    }),
+        {/* Botón de confirmar cambios */}
+        {isModified && (
+          <Box sx={{ mb: 2, display: "flex", justifyContent: "flex-end", pr: 2 }}>
+            <Button variant="contained" color="primary" onClick={handleConfirmChanges}>
+              Confirmar cambios
+            </Button>
+          </Box>
+        )}
+
+        <TableContainer component={Paper} sx={{ maxHeight: 440, overflow: "auto" }}>
+          <Table stickyHeader>
+            <TableHead>
+              <TableRow>
+                {columns.map((column) => (
+                  <TableCell
+                    key={column.field}
+                    align={column.align || "center"}
+                    sx={{ fontWeight: "bold", backgroundColor: "rgba(110, 40, 99, 0.83)", color: "rgba(255, 250, 254, 0.83)" }}
+                  >
+                    {column.headerName}
+                  </TableCell>
+                ))}
+                {actions && <TableCell
+                  align="center"
+                  sx={{
+                    fontWeight: "bold",
+                    backgroundColor: "rgba(110, 40, 99, 0.83)",
+                    color: "rgba(255, 250, 254, 0.83)"
+                  }}>
+                  Acciones
+                </TableCell>}
+              </TableRow>
+            </TableHead>
+            <TableBody>
+              {paginatedData.map((row, rowIndex) => {
+                const isEvenRow = rowIndex % 2 === 0;
+                const rowStyle = {
+                  backgroundColor: isEvenRow ? "#f5f5f5" : "#ffffff", // Alterna entre gris claro y blanco
+                };
+
+                return (
+                  <TableRow key={rowIndex} sx={rowStyle}>
+                    {columns.map((column) => {
+
+                      const value =
+                        column.field.includes(".")
+                          ? (() => {
+                            const [parent, child] = column.field.split(".");
+                            return row[parent] && row[parent][child]
+                              ? row[parent][child]
+                              : "-";
+                          })()
+                          : row[column.field] || "-";
+
+                      return (
+                        <TableCell key={`${rowIndex}-${column.field}`} align={column.align || "left"}>
+                          {value}
+                        </TableCell>
+                      );
+                    })}
+                    {actions && (
+                      <TableCell
+                        align="center"
+                      >
+                        {actions.map((action, actionIndex) => (
+                          <Tooltip key={actionIndex} title={action.tooltip || ""} arrow>
+                            <IconButton
+                              color={action.color || "default"}
+                              size="small"
+                              onClick={() => onActionClick(action, row)}
+                              sx={{ m: 0.5 }}
+                            >
+                              {action.icon}
+                            </IconButton>
+                          </Tooltip>
+                        ))}
+                      </TableCell>
+                    )}
+                  </TableRow>
+                );
+              })}
+            </TableBody>
+          </Table>
+        </TableContainer>
+
+        {pagination && (
+          <TablePagination
+            rowsPerPageOptions={pagination.rowsPerPageOptions || [5, 10, 25]}
+            component="div"
+            count={filteredData.length}
+            rowsPerPage={rowsPerPage}
+            page={page}
+            onPageChange={handleChangePage}
+            onRowsPerPageChange={handleChangeRowsPerPage}
+          />
+        )}
+      </Box>
+  );
 };
 
 export default CustomTable;

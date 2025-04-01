@@ -1,4 +1,4 @@
-import { Autocomplete, Container, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
+import { Autocomplete, Button, Container, FormControl, InputLabel, MenuItem, Select, TextField } from "@mui/material"
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { useEffect } from "react";
@@ -6,7 +6,7 @@ import { getContextAnalysisThunks } from "../../store/slices/context-analysis/th
 import { getInterestedPartiesThunks } from "../../store/slices/interested-parties/thunks";
 import { getProcessDefinitionThunks } from "../../store/slices/process-definition/thunks";
 import { useForm } from "../../hooks/useForm";
-import { FormScreen } from './../../layouts/form-screen';
+import { postRiskOrOpportunitiesThunks } from "../../store/slices/risk-opportunities/thunks";
 
 
 export const RiesgoOportunidadeForm = () => {
@@ -26,7 +26,7 @@ export const RiesgoOportunidadeForm = () => {
 
     })
 
-    const { analysisValue } = formState
+    const { analysisValue, interestedPartiesValue, processValue, riesgoOportunidadValue, descriptionROValue } = formState
 
     useEffect(() => {
         dispatch(getContextAnalysisThunks())
@@ -35,19 +35,31 @@ export const RiesgoOportunidadeForm = () => {
     }, [])
 
 
+    const onSubmit = async () => {
+
+        dispatch(postRiskOrOpportunitiesThunks({
+            contexto: analysisValue,
+            partesInteresadas: interestedPartiesValue,
+            process: processValue,
+            type: riesgoOportunidadValue,
+            description: descriptionROValue
+        }))
+
+        onResetForm()
+    }
 
     return (
         <Container
             sx={{
                 display: "flex",
                 flexDirection: "row",
+                justifyContent: "space-between",
                 flexWrap: "wrap",
                 width: "100%",
-                backgroundColor: "rgba(214, 104, 104, 0.13)",
                 padding: "5px"
             }}
+            className="animate__bounceIn animate__animated"
         >
-
 
             {analysis &&
 
@@ -66,7 +78,7 @@ export const RiesgoOportunidadeForm = () => {
                             required
                         />
                     )}
-                    value={analysis.find((item) => item.id === formState.analysisValue) || null}
+                    value={analysis.find((item) => item.id === analysisValue) || null}
                     onChange={(_, newValue) =>
                         onInputChange({
                             target: {
@@ -124,7 +136,7 @@ export const RiesgoOportunidadeForm = () => {
                             required
                         />
                     )}
-                    value={interestedParties.find((item) => item.id === formState.interestedPartiesValue) || null}
+                    value={interestedParties.find((item) => item.id === interestedPartiesValue) || null}
                     onChange={(_, newValue) =>
                         onInputChange({
                             target: {
@@ -165,7 +177,7 @@ export const RiesgoOportunidadeForm = () => {
                             required
                         />
                     )}
-                    value={processAlcanzados.find((item) => item.id === formState.processValue) || null}
+                    value={processAlcanzados.find((item) => item.id === processValue) || null}
                     onChange={(_, newValue) =>
                         onInputChange({
                             target: {
@@ -197,11 +209,13 @@ export const RiesgoOportunidadeForm = () => {
             >
                 <InputLabel>R/O</InputLabel>
                 <Select
-                    name="type"
+                    name="riesgoOportunidadValue"
                     label="Tipo"
+                    value={riesgoOportunidadValue}
+                    onChange={onInputChange}
                 >
-                    <MenuItem value="Riesgo">Riesgo</MenuItem>
-                    <MenuItem value="Oportunidad">Oportunidad</MenuItem>
+                    <MenuItem value="riesgo">Riesgo</MenuItem>
+                    <MenuItem value="oportunidad">Oportunidad</MenuItem>
                 </Select>
             </FormControl>
 
@@ -209,13 +223,20 @@ export const RiesgoOportunidadeForm = () => {
                 id="introduction-field"
                 label="Descripcion"
                 variant="outlined"
-                name="introductionValue"
+                name="descriptionROValue"
+                value={descriptionROValue}
+                onChange={onInputChange}
                 multiline
                 sx={{
                     margin: "5px",
+                    width: "100%"
 
                 }}
             />
+
+            <Button variant="contained" onClick={onSubmit} fullWidth>
+                Agregar {riesgoOportunidadValue ? riesgoOportunidadValue : 'Riesgo o Oportunidad'}
+            </Button>
 
         </Container>
     )
