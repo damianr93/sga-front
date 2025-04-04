@@ -1,4 +1,4 @@
-import { Fab, Grid, Typography } from "@mui/material"
+import { Divider, Fab, Grid, Toolbar, Typography } from "@mui/material"
 import { RiesgoOportunidadeForm } from './../components/riesgo-oportunidades-form';
 import { useEffect, useState } from "react";
 import { Add, Edit, Delete } from "@mui/icons-material";
@@ -6,6 +6,7 @@ import CustomTable, { Action, Column } from './../components/customTable';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
 import { deleteRiskOrOpportunitiesThunks, getRiskOrOpportunitiesThunks } from "../../store/slices/risk-opportunities/thunks";
+import { setEditForms } from "../../store/slices/edit-forms/edit-slice";
 
 const columns: Column[] = [
   { field: "contexto.description", headerName: "Relacion con el contexto", align: "left" },
@@ -14,6 +15,9 @@ const columns: Column[] = [
   { field: "process.name", headerName: "Proceso", align: "left" },
   { field: "type", headerName: "R/O", align: "center" },
   { field: "description", headerName: "Detalle", align: "center" },
+  { field: "probabilidadDeOcurencia", headerName: "Probabilidad", align: "center" },
+  { field: "consecuencia", headerName: "Consecuencia", align: "center" },
+  { field: "factorDeRiesgo", headerName: "Factor de riesgo", align: "center" }
 ];
 
 const actions: Action[] = [
@@ -33,7 +37,7 @@ export const RiesgosOportunidades = () => {
 
   const handleActionClick = (action: Action, row: any) => {
     if (action.name === "editar") {
-      console.log('editando')
+      dispatch(setEditForms({id: row.id,from:'riesgo-oportunidad-edit'}))
     } else if (action.name === "eliminar") {
       dispatch(deleteRiskOrOpportunitiesThunks(row.id))
     }
@@ -94,7 +98,7 @@ export const RiesgosOportunidades = () => {
         </Fab>
         {
           addingRecord &&
-          <RiesgoOportunidadeForm />
+          <><RiesgoOportunidadeForm /><Divider /><Toolbar/></>
         }
         <CustomTable
           columns={columns}
@@ -106,9 +110,6 @@ export const RiesgosOportunidades = () => {
           }}
         />
       </Grid>
-
-
-
     </Grid>
   )
 }

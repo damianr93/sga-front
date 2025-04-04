@@ -1,6 +1,6 @@
 import { API } from "../../../api/API";
 import { AppThunk } from "../../store";
-import { addRiskOrOpportunities, deleteRiskOrOpportunities, setRiskOrOpportunities } from "./riskOrOpportunities";
+import { addRiskOrOpportunities, deleteRiskOrOpportunities, setRiskOrOpportunities, updateRiskOrOpportunities } from "./riskOrOpportunities";
 
 
 export const getRiskOrOpportunitiesThunks = (): AppThunk => {
@@ -37,6 +37,27 @@ export const postRiskOrOpportunitiesThunks = (newRiskOrOpportunities: any): AppT
             const data = await response.json();
 
             dispatch(addRiskOrOpportunities(data))
+        } catch (error) {
+            console.log("Failed to fetch Riesgos o oportunidades:", error);
+
+        }
+    }
+}
+
+export const patchRiskOrOpportunitiesThunks = (newRiskOrOpportunities: any): AppThunk => {
+    return async (dispatch) => {
+        try {
+            const response = await fetch(`${API}/risk-and-opportunities/${newRiskOrOpportunities.id}`, {
+                method: "PATCH",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify(newRiskOrOpportunities)
+            });
+
+            const data = await response.json();
+
+            dispatch(updateRiskOrOpportunities(data))
         } catch (error) {
             console.log("Failed to fetch Riesgos o oportunidades:", error);
 

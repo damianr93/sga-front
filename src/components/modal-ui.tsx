@@ -10,6 +10,7 @@ import { ContextAnalysisItemsForm } from './context-analysis-items-form';
 import { InterestedPartiesForm } from './interested-parties-form';
 import { ProcessDefinitionsForm } from './process-definitions-form';
 import { ProcesosAlcanzadosForm } from './procesos-alcanzados-form';
+import { RiesgoOportunidadeForm } from '../planning/components/riesgo-oportunidades-form';
 
 const style = {
   position: 'absolute',
@@ -40,8 +41,10 @@ export default function BasicModal() {
         return <InterestedPartiesForm />;
       case "process-definitions":
         return <ProcessDefinitionsForm />;
-        case "procesos-alcanzados":
-          return <ProcesosAlcanzadosForm />;
+      case "procesos-alcanzados":
+        return <ProcesosAlcanzadosForm />;
+      case "riesgo-oportunidad-edit":
+        return <RiesgoOportunidadeForm />;
       default:
         break;
     }

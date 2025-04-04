@@ -62,6 +62,14 @@ export const riskAndOpportunitiesSlice = createSlice({
         addRiskOrOpportunities(state, action) {
             state.riskOrOpportunities.push(action.payload)
         },
+        updateRiskOrOpportunities(state, action) {
+            state.riskOrOpportunities = state.riskOrOpportunities.map((riskOrOpportunity) => {
+                if (riskOrOpportunity.id === action.payload.id) {
+                    return action.payload;
+                }
+                return riskOrOpportunity;
+            });
+        },
         deleteRiskOrOpportunities(state, action) {
             state.riskOrOpportunities = state.riskOrOpportunities.filter((state) => state.id !== action.payload)
         }
@@ -71,6 +79,8 @@ export const riskAndOpportunitiesSlice = createSlice({
 export const {
     setRiskOrOpportunities,
     addRiskOrOpportunities,
-    deleteRiskOrOpportunities
+    deleteRiskOrOpportunities,
+    updateRiskOrOpportunities
+
 } = riskAndOpportunitiesSlice.actions
 export default riskAndOpportunitiesSlice.reducer
