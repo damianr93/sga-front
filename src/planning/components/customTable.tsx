@@ -51,7 +51,7 @@ interface CustomTableProps {
 const CustomTable: React.FC<CustomTableProps> = ({ columns, data, actions, onActionClick, pagination }) => {
   const [tableData, setTableData] = useState(data);
   const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(pagination?.rowsPerPage || 5);
+  const [rowsPerPage, setRowsPerPage] = useState(pagination?.rowsPerPage || 7);
   const [searchColumn, setSearchColumn] = useState("");
   const [searchTerm, setSearchTerm] = useState("");
   const [isModified, setIsModified] = useState(false);
@@ -215,7 +215,7 @@ const CustomTable: React.FC<CustomTableProps> = ({ columns, data, actions, onAct
 
         {pagination && (
           <TablePagination
-            rowsPerPageOptions={pagination.rowsPerPageOptions || [5, 10, 25]}
+            rowsPerPageOptions={pagination.rowsPerPageOptions || [7, 10, 25]}
             component="div"
             count={filteredData.length}
             rowsPerPage={rowsPerPage}

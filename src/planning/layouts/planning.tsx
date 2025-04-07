@@ -8,6 +8,7 @@ import { ProcessDefinition } from "../views/process-definition";
 import Sidebar from "../components/Sidebar";
 import { ProcesosAlcanzados } from "../views/procesos-alcanzados";
 import { RiesgosOportunidades } from "../views/riesgos-oportunidades";
+import { AspectosAmbientales } from "../views/AspectosAmbientales";
 
 interface EditState {
   state: boolean;
@@ -38,6 +39,9 @@ export const PlanningLayout = () => {
       case "6.1 Acciones para abordar riesgos y oportunidades":
       setViewSelected(<RiesgosOportunidades/>)  
       break
+      case "6.1.2 Aspectos ambientales":
+        setViewSelected(<AspectosAmbientales/>)  
+        break
       default:
         setViewSelected(null);
         break;

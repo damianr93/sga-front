@@ -17,14 +17,14 @@ export const RiesgoOportunidadeForm = () => {
         process: '',
         type: '',
         description: '',
-        probabilidad: 0,
-        ocurrencia: 0,
-        perdidaDeClientesPotencial: 0,
-        dañoPotencial: 0,
-        conflictosGremialesPosibles: 0,
-        incumplimientoLegal: 0,
-        perdidaDeImagen: 0,
-        costoCorreccion: 0,
+        probabilidad: 1,
+        ocurrencia: 1,
+        perdidaDeClientesPotencial: 1,
+        dañoPotencial: 1,
+        conflictosGremialesPosibles: 1,
+        incumplimientoLegal: 1,
+        perdidaDeImagen: 1,
+        costoCorreccion: 1,
     }
     const dispatch = useDispatch<AppDispatch>()
     const { analysis } = useSelector((state: RootState) => state.analysisContext)

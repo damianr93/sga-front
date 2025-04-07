@@ -7,6 +7,7 @@ import { processDefinitionsSlice } from './slices/process-definition/process-def
 import { loadingSlice } from './slices/loading/loading'
 import { targetsSlice } from './slices/targets/targets'
 import { riskAndOpportunitiesSlice } from './slices/risk-opportunities/riskOrOpportunities'
+import { criterioSlice } from './slices/criterios/criterios'
 
 export const store = configureStore({
   reducer: {
@@ -17,7 +18,8 @@ export const store = configureStore({
     processDefinitions:processDefinitionsSlice.reducer,
     isLoading:loadingSlice.reducer,
     targets: targetsSlice.reducer,
-    riskOrOpportunities: riskAndOpportunitiesSlice.reducer
+    riskOrOpportunities: riskAndOpportunitiesSlice.reducer,
+    criterios: criterioSlice.reducer
   },
 })
 

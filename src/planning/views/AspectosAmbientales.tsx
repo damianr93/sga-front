@@ -28,7 +28,7 @@ const actions: Action[] = [
 ];
 
 
-export const RiesgosOportunidades = () => {
+export const AspectosAmbientales = () => {
   const [addingRecord, setAddingRecord] = useState(false)
 
   const dispatch = useDispatch<AppDispatch>()

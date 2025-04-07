@@ -10,7 +10,7 @@ interface TargetsState {
 }
 
 const initialState: TargetsState = {
-  targets: [{ id: '', description: '' }],
+  targets: [],
 };
 
 export const targetsSlice = createSlice({
