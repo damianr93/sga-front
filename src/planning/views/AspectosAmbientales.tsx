@@ -4,22 +4,22 @@ import { Add, Edit, Delete, Save } from "@mui/icons-material";
 import { Action, Column } from './../components/customTable';
 import { useDispatch, useSelector } from "react-redux";
 import { AppDispatch, RootState } from "../../store/store";
-import { deleteRiskOrOpportunitiesThunks, getRiskOrOpportunitiesThunks } from "../../store/slices/risk-opportunities/thunks";
 import { setEditForms } from "../../store/slices/edit-forms/edit-slice";
 import { createCriterioThunk, getCriteriosThunks, updateCriterioThunk } from "../../store/slices/criterios/thunks";
 import CustomTableRiesgosOportunidades from "../components/customTableRiesgoOp";
 import { EnviromentalAspectsForm } from "../components/enviromental-aspects-form";
+import { deleteEnvironmentalAspectsThunks, getEnvironmentalAspectsThunks } from "../../store/slices/environmental-aspects/thunks";
 
 const columns: Column[] = [
-  { field: "contexto.description", headerName: "Relacion con el contexto", align: "left" },
-  { field: "partesInteresadas.name", headerName: "Parte interesada", align: "center" },
-  { field: "partesInteresadas.requirement", headerName: "Requisito parte interesada", align: "left" },
+  { field: "condicion", headerName: "Condición", align: "center" },
+  { field: "element", headerName: "Elemento", align: "center" },
+  { field: "description", headerName: "Descripción del Riesgo Asociado", align: "center" },
+  { field: "context.description", headerName: "Relacion con el contexto", align: "left" },
+  // { field: "partesInteresadas.name", headerName: "Parte interesada", align: "center" },
+  // { field: "partesInteresadas.requirement", headerName: "Requisito parte interesada", align: "left" },
   { field: "process.name", headerName: "Proceso", align: "left" },
-  { field: "type", headerName: "R/O", align: "center" },
-  { field: "description", headerName: "Detalle", align: "center" },
-  { field: "probabilidadDeOcurencia", headerName: "Probabilidad", align: "center" },
-  { field: "consecuencia", headerName: "Consecuencia", align: "center" },
-  { field: "factorDeRiesgo", headerName: "Factor de riesgo", align: "center" }
+  { field: "affectedResource", headerName: "Recurso afectado", align: "center" },
+  { field: "operatingCondition", headerName: "Condicion de operación", align: "center" }
 ];
 
 const actions: Action[] = [
@@ -33,7 +33,7 @@ export const AspectosAmbientales = () => {
 
   const dispatch = useDispatch<AppDispatch>()
 
-  const { riskOrOpportunities } = useSelector((state: RootState) => state.riskOrOpportunities)
+  const { environmentalAspects } = useSelector((state:RootState) => state.environmentalAspects)
   const { criterios } = useSelector((state: RootState) => state.criterios)
 
   const criterioUmbral = criterios.find((criterio) => criterio.type === "umbral-riesgo")
@@ -41,15 +41,16 @@ export const AspectosAmbientales = () => {
   const [umbralValueState, setUmbralValueState] = useState(criterioUmbral ? criterioUmbral.valor : 0)
 
   useEffect(() => {
-    dispatch(getRiskOrOpportunitiesThunks())
+    dispatch(getEnvironmentalAspectsThunks())
     dispatch(getCriteriosThunks())
   }, [])
 
   const handleActionClick = (action: Action, row: any) => {
     if (action.name === "editar") {
-      dispatch(setEditForms({ id: row.id, from: 'riesgo-oportunidad-edit' }))
+      dispatch(setEditForms({ id: row.id, from: '' }))
     } else if (action.name === "eliminar") {
-      dispatch(deleteRiskOrOpportunitiesThunks(row.id))
+      console.log(row.id)
+      dispatch(deleteEnvironmentalAspectsThunks(row.id))
     }
   };
 
@@ -195,7 +196,7 @@ export const AspectosAmbientales = () => {
         }
         <CustomTableRiesgosOportunidades
           columns={columns}
-          data={riskOrOpportunities}
+          data={environmentalAspects}
           actions={actions}
           onActionClick={handleActionClick}
           criterioUmbral={criterioUmbral ? criterioUmbral?.valor : 10}

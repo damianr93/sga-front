@@ -23,7 +23,7 @@ export const EnviromentalAspectsForm = () => {
         managementLegalRequeriment: 0,
         legalRequirementNumberOrId: '',
         legalRequirementDescrption: '',
-        interestedParties: [],
+        interestedPartiesIds: [''],
         interestedPartiesValue: 0,
         managementRequerimentPart: 0,
         impactFrequency: 0,
@@ -38,7 +38,7 @@ export const EnviromentalAspectsForm = () => {
     const { processDefinitions } = useSelector((state: RootState) => state.processDefinitions)
     const { id } = useSelector((state: RootState) => state.editForms)
 
-    if (id !== undefined) {
+    if (id !== undefined && id.length > 0) {
         const { environmentalAspects } = useSelector((state: RootState) => state.environmentalAspects)
 
         const environmentalAspectsToEdit = environmentalAspects.find((environmentalAspect) => environmentalAspect.id === id)
@@ -57,7 +57,7 @@ export const EnviromentalAspectsForm = () => {
                 managementLegalRequeriment: environmentalAspectsToEdit.managementLegalRequeriment,
                 legalRequirementNumberOrId: environmentalAspectsToEdit.legalRequirementNumberOrId,
                 legalRequirementDescrption: environmentalAspectsToEdit.legalRequirementDescrption,
-                interestedParties: environmentalAspectsToEdit.interestedParties as any,
+                interestedPartiesIds: environmentalAspectsToEdit.interestedParties,
                 interestedPartiesValue: environmentalAspectsToEdit.interestedPartiesValue,
                 managementRequerimentPart: environmentalAspectsToEdit.managementRequerimentPart,
                 impactFrequency: environmentalAspectsToEdit.impactFrequency,
@@ -87,7 +87,7 @@ export const EnviromentalAspectsForm = () => {
         managementLegalRequeriment,
         legalRequirementNumberOrId,
         legalRequirementDescrption,
-        // interestedParties,
+        interestedPartiesIds,
         interestedPartiesValue,
         managementRequerimentPart,
         impactFrequency,
@@ -106,7 +106,7 @@ export const EnviromentalAspectsForm = () => {
     const onSubmit = async () => {
 
 
-        if (idvalue !== undefined) {
+        if (idvalue !== undefined && idvalue.length > 0) {
             dispatch(patchEnvironmentalAspectsThunks(
                 {
                     id: idvalue,
@@ -121,7 +121,7 @@ export const EnviromentalAspectsForm = () => {
                     managementLegalRequeriment,
                     legalRequirementNumberOrId,
                     legalRequirementDescrption,
-                    interestedParties,
+                    interestedParties: interestedPartiesIds,
                     interestedPartiesValue,
                     managementRequerimentPart,
                     impactFrequency,
@@ -143,7 +143,7 @@ export const EnviromentalAspectsForm = () => {
                 managementLegalRequeriment,
                 legalRequirementNumberOrId,
                 legalRequirementDescrption,
-                interestedParties,
+                interestedParties: interestedPartiesIds,
                 interestedPartiesValue,
                 managementRequerimentPart,
                 impactFrequency,
@@ -175,7 +175,11 @@ export const EnviromentalAspectsForm = () => {
                     Definicion del Aspecto ambiental
                 </Typography>
 
-                <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "space-between" }}>
+                <Box sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "space-between",
+                }}>
                     {analysis &&
                         <Autocomplete
                             sx={{
@@ -230,44 +234,49 @@ export const EnviromentalAspectsForm = () => {
                         />
                     }
 
-                    {/* {interestedParties &&
-                        <Autocomplete
-                            sx={{
-                                minWidth: "300px",
-                                margin: "5px"
-                            }}
-                            options={interestedParties}
-                            getOptionLabel={(option) => option.name}
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label="Parte interesada"
-                                    fullWidth
-                                    required
-                                />
-                            )}
-                            value={interestedParties.find((item) => item.id === partesInteresadas) || null}
-                            onChange={(_, newValue) =>
-                                onInputChange({
-                                    target: {
-                                        name: "partesInteresadas",
-                                        value: newValue ? newValue.id : ""
-                                    }
-                                })
-                            }
-                            isOptionEqualToValue={(option, value) => option.id === value?.id}
-                            renderOption={(props, option) => {
-                                return (
-                                    <li
-                                        {...props}
-                                        key={option.id}
-                                    >
-                                        {option.name}
-                                    </li>
-                                );
-                            }}
-                        />
-                    } */}
+                    {interestedParties && (
+                        <>
+                            <Autocomplete
+                                sx={{
+                                    minWidth: "300px",
+                                    margin: "5px"
+                                }}
+                                multiple
+                                options={interestedParties}
+                                getOptionLabel={(option) => option?.name || ''}
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label="Partes interesadas"
+                                        fullWidth
+                                        required
+                                    />
+                                )}
+                                value={interestedPartiesIds.map(id =>
+                                    interestedParties.find(item => item.id === id) || null).filter(Boolean)}
+                                onChange={(_, newValues) =>
+                                    onInputChange({
+                                        target: {
+                                            name: "interestedPartiesIds",
+                                            value: newValues.map(item => item?.id)
+                                        }
+                                    })
+                                }
+                                isOptionEqualToValue={(option, value) => option?.id === value?.id}
+                                renderOption={(props, option) => {
+                                    if (!option) return null;
+                                    return (
+                                        <li
+                                            {...props}
+                                            key={option.id}
+                                        >
+                                            {option.name}
+                                        </li>
+                                    );
+                                }}
+                            />
+                        </>
+                    )}
 
                     {processAlcanzados &&
                         <Autocomplete
@@ -347,10 +356,28 @@ export const EnviromentalAspectsForm = () => {
                         </Select>
                     </FormControl>
 
+                    <FormControl
+                        sx={{
+                            margin: "5px",
+                            minWidth: "300px"
+                        }}
+                    >
+                        <InputLabel>Condicion de operacion</InputLabel>
+                        <Select
+                            name="operatingCondition"
+                            label="Condición"
+                            value={operatingCondition}
+                            onChange={onInputChange}
+                        >
+                            <MenuItem value="Normal">Normal</MenuItem>
+                            <MenuItem value="Anormal">Anormal</MenuItem>
+                            <MenuItem value="Emergencia">Emergencia</MenuItem>
+                        </Select>
+                    </FormControl>
 
                     <TextField
                         id="introduction-field"
-                        label="Descripción"
+                        label="Elemento"
                         variant="outlined"
                         name="element"
                         value={element}
@@ -375,30 +402,11 @@ export const EnviromentalAspectsForm = () => {
                             width: "100%"
                         }}
                     />
-                    <FormControl
-                        sx={{
-                            margin: "5px",
-                            minWidth: "300px"
-                        }}
-                    >
-                        <InputLabel>Condicion de operacion</InputLabel>
-                        <Select
-                            name="operatingCondition"
-                            label="Condición"
-                            value={operatingCondition}
-                            onChange={onInputChange}
-                        >
-                            <MenuItem value="Normal">Normal</MenuItem>
-                            <MenuItem value="Anormal">Anormal</MenuItem>
-                            <MenuItem value="Emergencia">Emergencia</MenuItem>
-                        </Select>
-                    </FormControl>
                 </Box>
             </Box>
 
+            {/* REQUISITO LEGAL */}
 
-
-            {/* SECCIÓN 2: EVALUACIÓN DE PROBABILIDAD */}
             <Box
                 sx={{
                     width: "100%",
@@ -409,7 +417,11 @@ export const EnviromentalAspectsForm = () => {
                     Requisito legal
                 </Typography>
 
-                <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-start" }}>
+                <Box sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "space-between"
+                }}>
 
 
                     <FormControl
@@ -480,11 +492,17 @@ export const EnviromentalAspectsForm = () => {
 
                 </Box>
 
+                {/* PARTE INTERESADA */}
+
                 <Typography variant="h6" gutterBottom sx={{ color: "rgb(110, 40, 100)", fontWeight: "500" }}>
                     Exigencia de la parte interesada
                 </Typography>
 
-                <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-start" }}>
+                <Box sx={{
+                    display: "flex",
+                    flexWrap: "wrap",
+                    justifyContent: "space-between"
+                }}>
 
                     <FormControl
                         sx={{
@@ -526,11 +544,18 @@ export const EnviromentalAspectsForm = () => {
 
                 </Box>
 
+                {/* IMPACTO AMBIENTAL */}
+
                 <Typography variant="h6" gutterBottom sx={{ color: "rgb(110, 40, 100)", fontWeight: "500" }}>
                     Impacto ambiental
                 </Typography>
 
-                <Box sx={{ display: "flex", flexWrap: "wrap", justifyContent: "flex-start" }}>
+                <Box
+                    sx={{
+                        display: "flex",
+                        flexWrap: "wrap",
+                        justifyContent: "space-between"
+                    }}>
 
                     <FormControl
                         sx={{
@@ -604,7 +629,7 @@ export const EnviromentalAspectsForm = () => {
                         fontWeight: "bold"
                     }}
                 >
-                    Agregar
+                    Agregar Aspecto Ambiental
                 </Button>
             </Box>
         </Container >
