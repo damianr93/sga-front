@@ -1,5 +1,4 @@
 import { Box, Button, Divider, Fab, FormControl, Grid, TextField, Toolbar, Typography } from "@mui/material"
-import { RiesgoOportunidadeForm } from './../components/riesgo-oportunidades-form';
 import { useEffect, useState } from "react";
 import { Add, Edit, Delete, Save } from "@mui/icons-material";
 import { Action, Column } from './../components/customTable';
@@ -9,6 +8,7 @@ import { deleteRiskOrOpportunitiesThunks, getRiskOrOpportunitiesThunks } from ".
 import { setEditForms } from "../../store/slices/edit-forms/edit-slice";
 import { createCriterioThunk, getCriteriosThunks, updateCriterioThunk } from "../../store/slices/criterios/thunks";
 import CustomTableRiesgosOportunidades from "../components/customTableRiesgoOp";
+import { EnviromentalAspectsForm } from "../components/enviromental-aspects-form";
 
 const columns: Column[] = [
   { field: "contexto.description", headerName: "Relacion con el contexto", align: "left" },
@@ -149,7 +149,7 @@ export const AspectosAmbientales = () => {
             fontSize: { xs: "1.8rem", sm: "2.2rem" },
           }}
         >
-          Riesgos y oportunidades
+          Aspectos Ambientales
         </Typography>
       </Grid>
 
@@ -165,7 +165,7 @@ export const AspectosAmbientales = () => {
             lineHeight: 1.6,
           }}
         >
-          En esta sección, puede analizar los riesgos y oportunidades en relación con su contexto, definiendo el umbral máximo a partir del cual se implementarán acciones correctivas.
+          En esta sección, puede analizar los Aspextos Ambientales, definiendo el umbral máximo a partir del cual se implementarán acciones correctivas.
         </Typography>
       </Grid>
       <Grid
@@ -191,7 +191,7 @@ export const AspectosAmbientales = () => {
         </Fab>
         {
           addingRecord &&
-          <><RiesgoOportunidadeForm /><Divider /><Toolbar /></>
+          <><EnviromentalAspectsForm /><Divider /><Toolbar /></>
         }
         <CustomTableRiesgosOportunidades
           columns={columns}

@@ -8,6 +8,7 @@ import { loadingSlice } from './slices/loading/loading'
 import { targetsSlice } from './slices/targets/targets'
 import { riskAndOpportunitiesSlice } from './slices/risk-opportunities/riskOrOpportunities'
 import { criterioSlice } from './slices/criterios/criterios'
+import { environmentalAspectsSlice } from './slices/environmental-aspects/environmental-aspects'
 
 export const store = configureStore({
   reducer: {
@@ -19,7 +20,8 @@ export const store = configureStore({
     isLoading:loadingSlice.reducer,
     targets: targetsSlice.reducer,
     riskOrOpportunities: riskAndOpportunitiesSlice.reducer,
-    criterios: criterioSlice.reducer
+    criterios: criterioSlice.reducer,
+    environmentalAspects: environmentalAspectsSlice.reducer
   },
 })
 
