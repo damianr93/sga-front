@@ -22,27 +22,6 @@ SGA-Front es una aplicación web construida con React y TypeScript que permite c
 * **Redux Toolkit** para gestión de estado global
 * **ESLint** y **Prettier** para calidad y consistencia de código
 
-## Estructura del proyecto
-
-```
-sga-front/
-├── public/           # Archivos estáticos y punto de entrada HTML
-│   └── index.html
-├── src/              # Código fuente
-│   ├── assets/       # Imágenes, estilos globales y fuentes
-│   ├── components/   # Componentes reutilizables
-│   ├── pages/        # Vistas (Dashboard, Documentos, Configuración, etc.)
-│   ├── services/     # Clientes HTTP y lógica de interacción con API
-│   ├── store/        # Configuración de Redux y slices
-│   ├── utils/        # Funciones y helpers genéricos
-│   ├── App.tsx       # Componente raíz
-│   └── main.tsx      # Punto de entrada y montaje de la aplicación
-├── .eslintrc.cjs      # Configuración de ESLint
-├── tsconfig.json      # Configuración de TypeScript
-├── vite.config.ts     # Configuración de Vite
-└── package.json       # Dependencias y scripts
-```
-
 ## Instalación y puesta en marcha
 
 1. Clonar el repositorio:
