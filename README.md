@@ -20,7 +20,6 @@ SGA-Front es una aplicación web construida con React y TypeScript que permite c
 * **Vite** como bundler y servidor de desarrollo
 * **Material-UI (MUI)** para componentes de interfaz responsiva
 * **Redux Toolkit** para gestión de estado global
-* **Axios** para comunicación HTTP con el backend
 * **ESLint** y **Prettier** para calidad y consistencia de código
 
 ## Estructura del proyecto
