@@ -1,32 +1,87 @@
-# Eco Toyota - Frontend
+# SGA-Front
 
-Este repositorio contiene el frontend de **Eco Toyota**, una aplicación diseñada para centralizar y gestionar los procesos relacionados con el sistema de gestión ambiental basado en la norma **ISO14001**. El objetivo principal es ofrecer una solución intuitiva y accesible que permita a los usuarios gestionar todos los aspectos del sistema de manera eficiente.
+Frontend web para la gestión del Sistema de Gestión Ambiental (SGA) basado en la norma ISO 14001.
 
-> **Nota:** Esta aplicación está en desarrollo, por lo que algunas funcionalidades pueden no estar completamente implementadas. Backend: https://github.com/damianr93/ecoToyota
+## Descripción
 
-## 🚀 Características (en desarrollo)
+SGA-Front es una aplicación web construida con React y TypeScript que permite centralizar y administrar todos los procesos, documentos, registros y métricas relacionados con la gestión ambiental según ISO 14001.
 
-- Gestión centralizada de los procesos relacionados con **ISO14001**.
-- Interfaz amigable para facilitar la administración de documentos, registros y métricas ambientales.
-- Integración con el backend: [ecoToyota](https://github.com/damianr93/ecoToyota).
+## Características
 
-## 🛠 Tecnologías utilizadas
+* Gestión centralizada de procesos ambientales, documentos, registros y métricas.
+* Dashboard interactivo con paneles para indicadores clave de desempeño (KPI).
+* Seguimiento de acciones correctivas y preventivas.
+* Control de acceso por roles (Administrador, Auditor, Usuario).
+* Integración con API RESTful mediante variables de entorno.
 
-- **React.js**: Biblioteca para construir interfaces de usuario dinámicas.
-- **Material-UI (MUI)**: Framework para crear componentes estilizados y responsivos.
-- **Redux**: Manejo del estado global de la aplicación.
+## Tecnologías
 
-1. Clona este repositorio:
+* **React** con TypeScript
+* **Vite** como bundler y servidor de desarrollo
+* **Material-UI (MUI)** para componentes de interfaz responsiva
+* **Redux Toolkit** para gestión de estado global
+* **Axios** para comunicación HTTP con el backend
+* **ESLint** y **Prettier** para calidad y consistencia de código
+
+## Estructura del proyecto
+
+```
+sga-front/
+├── public/           # Archivos estáticos y punto de entrada HTML
+│   └── index.html
+├── src/              # Código fuente
+│   ├── assets/       # Imágenes, estilos globales y fuentes
+│   ├── components/   # Componentes reutilizables
+│   ├── pages/        # Vistas (Dashboard, Documentos, Configuración, etc.)
+│   ├── services/     # Clientes HTTP y lógica de interacción con API
+│   ├── store/        # Configuración de Redux y slices
+│   ├── utils/        # Funciones y helpers genéricos
+│   ├── App.tsx       # Componente raíz
+│   └── main.tsx      # Punto de entrada y montaje de la aplicación
+├── .eslintrc.cjs      # Configuración de ESLint
+├── tsconfig.json      # Configuración de TypeScript
+├── vite.config.ts     # Configuración de Vite
+└── package.json       # Dependencias y scripts
+```
+
+## Instalación y puesta en marcha
+
+1. Clonar el repositorio:
 
    ```bash
-   git clone https://github.com/damianr93/eco-toyota-front.git
-   cd eco-toyota-front
-
-2. Instala las dependencias:
+   git clone https://github.com/damianr93/sga-front.git
+   cd sga-front
+   ```
+2. Instalar dependencias:
 
    ```bash
    npm install
-   
-3. inicia la aplicacion:
+   ```
+3. Configurar variables de entorno:
+
+   * Crear un archivo `.env` en la raíz y definir:
+
+     ```env
+     VITE_API_BASE_URL=https://api.tu-backend.com
+     ```
+4. Ejecutar en modo desarrollo:
+
    ```bash
    npm run dev
+   ```
+5. Construir para producción:
+
+   ```bash
+   npm run build
+   npm run preview
+   ```
+
+## Contribuciones
+
+¡Las contribuciones son bienvenidas! Para colaborar:
+
+1. Abre un *issue* describiendo tu propuesta.
+2. Crea una rama (branch) con el prefijo `feature/` o `fix/`.
+3. Realiza tus cambios y asegúrate de pasar los linters y tests.
+4. Envía un *pull request* describiendo tus mejoras.
+
